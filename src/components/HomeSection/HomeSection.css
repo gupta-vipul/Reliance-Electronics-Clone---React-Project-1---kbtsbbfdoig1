@@ -1,0 +1,11 @@
+.home-section-slider {
+    /* background-color: #fafafa; */
+    background-image: linear-gradient(#fafafa, #fff);
+    margin-top: 4px;
+    padding: 10px;
+}
+
+.slider-container {
+    width: 90%;
+    margin: 0 auto;
+}

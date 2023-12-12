@@ -1,0 +1,17 @@
+.navbar {
+    background-color: var(--secondary-color);
+    color: #fff;
+    list-style: none;
+    padding: 0 2%;
+    justify-content: space-between;
+}
+.nav-list-items {
+    padding: 10px 16px;
+    font-size: 12px;
+    align-items: center;
+    font-weight: 600;
+    cursor: pointer;
+}
+.nav-list-items:hover {
+    background-color: var(--primary-color);
+}

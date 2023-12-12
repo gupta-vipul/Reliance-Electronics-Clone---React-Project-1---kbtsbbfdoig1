@@ -1,0 +1,13 @@
+.css-6hp17o-MuiList-root-MuiMenu-list {
+    background-color: var(--secondary-color);
+    color: #fff;
+}
+
+.css-kk1bwy-MuiButtonBase-root-MuiMenuItem-root:hover {
+    background-color: var(--primary-color)!important;
+}
+
+.css-6hp17o-MuiList-root-MuiMenu-list a {
+    text-decoration: none;
+    color: inherit;
+}

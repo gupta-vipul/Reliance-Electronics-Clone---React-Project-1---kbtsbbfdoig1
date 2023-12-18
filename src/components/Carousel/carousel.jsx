@@ -8,7 +8,7 @@ import ProductCard from "../Card/Card";
 
 const Carousel = (props) => {
   const {config, sliderList} = props;
-  console.log(sliderList);
+  // console.log(sliderList);
   return (
     <>
       <Slider {...config}>

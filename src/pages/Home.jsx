@@ -2,10 +2,15 @@ import React, { useEffect, useState } from 'react'
 import Carousel from '../components/Carousel/carousel';
 import { v4 as uuidv4 } from 'uuid';
 import HomeSection from '../components/HomeSection/HomeSection';
-import { GET_PRODUCTS_FOR_HOMEPAGE } from '../Constants/APIs';
+import { GET_BESTSELLER_LIST, GET_NEW_ARRIVAL, GET_PRODUCTS_CATEGORYWISE, GET_PRODUCTS_FOR_HOMEPAGE } from '../Constants/APIs';
 
 const Home = () => {
   const [trendingList, setTrendingList] = useState([]);
+  const [bestSellerList, setBestSellerList] = useState([]);
+  const [newArrivalList, setNewArrivalList] = useState([]);
+  const [tvList, setTvList] = useState([]);
+  const [acList, setAcList] = useState([]);
+  const [fridgeList, setFridgeList] = useState([]);
   const sliderList = [
     {
       id: uuidv4(),
@@ -38,7 +43,7 @@ const Home = () => {
       displayName: "Mobile-Accessories-Fiesta-banner",
     }
   ];
-  const mainBannerCarouselConfig = {
+  const BannerCarouselConfig = {
     dots: false,
     infinite: true,
     slidesToShow: 1,
@@ -47,32 +52,91 @@ const Home = () => {
     autoplaySpeed: 5000,
     pauseOnHover: true,
   };
-  const trendingConfig = {
+  const CardConfig = {
     dots: false,
     infinite: true,
-    speed: 500,
+    speed: 1000,
     slidesToShow: 5,
     slidesToScroll: 5,
     initialSlide: 0,
   };
   async function getDataForHomePage() {
-    const response = await fetch(GET_PRODUCTS_FOR_HOMEPAGE,{
+    try{
+      const response = await fetch(GET_PRODUCTS_FOR_HOMEPAGE,{
+        headers: {
+          'projectID' : 'kbtsbbfdoig1',
+        }
+      });
+      const jsonData = await response.json();
+      setTrendingList(jsonData.data);
+    }
+    catch(error) {
+      console.log("error", error);
+    }
+  }
+  async function getBestSellerList() {
+    const response = await fetch(GET_BESTSELLER_LIST, {
+      headers : {
+        'projectID' : 'kbtsbbfdoig1',
+      }
+    });
+    const jsonData = await response.json();
+    setBestSellerList(jsonData.data);
+    // console.log("best seller List: ", jsonData);
+  }
+  async function getNewArrivalList() {
+    const response = await fetch(GET_NEW_ARRIVAL,{
       headers: {
         'projectID' : 'kbtsbbfdoig1',
       }
     });
     const jsonData = await response.json();
-
-    setTrendingList(jsonData.data);
+    setNewArrivalList(jsonData.data);
   }
+  async function getProductCategoryWise(category,limit) {
+    try{
+      const response = await fetch(GET_PRODUCTS_CATEGORYWISE(category,limit), {
+        headers: {
+          'projectID' : 'kbtsbbfdoig1',
+        }
+      });
+      const jsonData = await response.json();
+
+      if(category === "tv") {
+        setTvList(jsonData.data);
+      }
+      else if(category === "ac") {
+        setAcList(jsonData.data);
+      }
+      else if(category === "refrigerator") {
+        setFridgeList(jsonData.data);
+      }
+    }
+    catch(error) {
+      console.log(error);
+    }
+  }
+
+  
 
   useEffect(()=>{
     getDataForHomePage();
+    getBestSellerList();
+    getNewArrivalList();
+    getProductCategoryWise('tv', 10);
+    getProductCategoryWise('ac', 10);
+    getProductCategoryWise('refrigerator', 10);
+
   },[])
   return (
     <>
-        <Carousel sliderList={sliderList} config={mainBannerCarouselConfig}/>
-        <HomeSection sliderList={trendingList} config={trendingConfig} categoryName={"Trending"}/>
+        <Carousel sliderList={sliderList} config={BannerCarouselConfig}/>
+        <HomeSection sliderList={trendingList} config={CardConfig} categoryName={"Trending"}/>
+        <HomeSection sliderList={bestSellerList} config={CardConfig} categoryName={"Best Seller"} />
+        <HomeSection sliderList={newArrivalList} config={CardConfig} categoryName={"New Arrival"}/>
+        <HomeSection sliderList={tvList} config={CardConfig} categoryName={"Television"}/>
+        <HomeSection sliderList={fridgeList} config={CardConfig} categoryName={"Refrigerator"}/>
+        <HomeSection sliderList={acList} config={CardConfig} categoryName={"Air Conditioner"}/>
         {/* <div>Home Section</div> */}
     </>
   )

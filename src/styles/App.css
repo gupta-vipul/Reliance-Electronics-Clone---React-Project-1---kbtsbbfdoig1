@@ -12,3 +12,50 @@
     justify-content: center;
     align-items: center;
 }
+
+
+/* 
+--------
+ProductContainer Component
+--------
+*/
+
+.productContainer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.productContainer a {
+    text-decoration: none;
+}
+
+.product-listing {
+    display: flex;
+
+}
+.filter-section {
+    flex: 1;
+}
+.filter-tag {
+    background-color: #fff;
+    width: 98%;
+    padding: 10px 8px;
+    box-sizing: border-box;
+    margin: 0 5px;
+    font-weight: 600;
+    font-size: 1rem;
+    border: 1px solid #e0e0e1;
+    border-top: 0;
+}
+.sorting-section {
+    background-color: #fff;
+    width: 98%;
+    padding: 10px 8px;
+    box-sizing: border-box;
+    margin: 0 5px;
+    font-weight: bold;
+    border: 1px solid #e0e0e1;
+    border-top: 0;
+
+}

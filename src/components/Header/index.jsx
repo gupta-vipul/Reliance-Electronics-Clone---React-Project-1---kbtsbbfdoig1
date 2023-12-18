@@ -3,12 +3,17 @@ import SearchIcon from '@mui/icons-material/Search';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import PersonIcon from '@mui/icons-material/Person';
 import Navbar from '../Navbar';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Dropdown from '../Menu/Dropdown';
-import { useEffect, useState } from 'react';
-import { GET_CATEGORIES } from '../../Constants/APIs';
+import { useContext, useEffect, useRef, useState } from 'react';
+import { GET_CATEGORIES, GET_SEARCH_DATA } from '../../Constants/APIs';
+import { SearchContext } from '../../Context/SearchContext';
 
 const Header = ()=>{
+    const SearchInputRef = useRef();
+    const {setSearchInputText} = useContext(SearchContext);
+    const navigate = useNavigate();
+    // console.log(searchInputText);
     const autoHideHeaderList = [
         {id: "find_a_store", displayName: "Find a store"},
         {id: "buying_guides", displayName: "Buying guides"},
@@ -30,9 +35,18 @@ const Header = ()=>{
         });
         const data = await response.json();
         setCategories(data.data);
+        // console.log("Categories data =>",data.data);
+    }
+
+    function handleSubmit(e){
+        e.preventDefault();
+        if(SearchInputRef.current.value !== "") {
+            setSearchInputText(SearchInputRef.current.value);
+        }
     }
 
     useEffect(()=>{
+        SearchInputRef.current.focus();
         getAllCategories();
     },[])
     return (
@@ -47,12 +61,12 @@ const Header = ()=>{
             </ul>
         </div>
         <div className='header-main flex'>
-            <Link to="/"><img className='headerlogo' src="https://www.reliancedigital.in/build/client/images/loaders/rd_logo.svg" alt="logo" /></Link>
+            <Link to="/"><img className='headerlogo' src="rd_logo.svg" alt="logo" /></Link>
             <Dropdown categories = {categories}/>
-            <div className="search-box">
-                <input className="search-input" type='text' placeholder='Find your favorite products'/>
-                <SearchIcon className='searchIcon'/>
-            </div>
+            <form className="search-box" onSubmit={handleSubmit}>
+                <input ref={SearchInputRef} className="search-input" type='text' placeholder='Find your favorite products'/>
+                <button type="submit" className="searchbtn"><SearchIcon className='searchIcon' /></button>
+            </form>
             <ul className='flex'>
                 {
                     mainHeaderList.map((listItem)=>{

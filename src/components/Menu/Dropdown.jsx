@@ -46,7 +46,7 @@ const Dropdown = (props) => {
           Array.isArray(categories) &&
           categories.map((category) => {
             return (
-              <Link to={`/${category}`} key={category}>
+              <Link to={`/categories/${category}`} key={category}>
                 <MenuItem onClick={handleClose}>
                   {category}
                 </MenuItem>

@@ -1,28 +1,59 @@
 import './header.css';
+import { useContext, useEffect, useRef, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { v4 as uuidv4 } from 'uuid';
 import SearchIcon from '@mui/icons-material/Search';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import PersonIcon from '@mui/icons-material/Person';
-import Navbar from '../Navbar';
-import { Link, useNavigate } from 'react-router-dom';
-import Dropdown from '../Menu/Dropdown';
-import { useContext, useEffect, useRef, useState } from 'react';
 import { GET_CATEGORIES, GET_SEARCH_DATA } from '../../Constants/APIs';
 import { SearchContext } from '../../Context/SearchContext';
+import { AuthContext } from '../../Context/AuthContext';
+import Navbar from '../Navbar';
+import Dropdown from '../Menu/Dropdown';
 
 const Header = ()=>{
     const SearchInputRef = useRef();
+    const {isLoggedIn, setIsLoggedIn} = useContext(AuthContext);
     const {setSearchInputText} = useContext(SearchContext);
     const navigate = useNavigate();
-    // console.log(searchInputText);
     const autoHideHeaderList = [
-        {id: "find_a_store", displayName: "Find a store"},
-        {id: "buying_guides", displayName: "Buying guides"},
-        {id: "contact_us", displayName: "Contact us"}
+        {
+            id: uuidv4(),
+            displayName: "Find a store",
+            path: "/"
+        },
+        {
+            id: uuidv4(),
+            displayName: "Buying guides", 
+            path: "/"
+        },
+        {
+            id: uuidv4(), 
+            displayName: "Contact us", 
+            path: "/"
+        },
     ];
     const mainHeaderList = [
-        {id: "select_your_pin_code" , displayName:"Select your Pin Code"}, 
-        {id: "cart" , displayName: "Cart"}, 
-        {id: "login" , displayName: "Login"}
+        {
+            id: uuidv4(), 
+            displayName: "Select your Pin Code", 
+            path: "/"
+        }, 
+        {
+            id: uuidv4(), 
+            displayName: "Cart", 
+            path: "/cart"
+        }, 
+        {
+            id: uuidv4(), 
+            displayName: "Login", 
+            path: "/login"
+        },
+        {
+            id: uuidv4(),
+            displayName: "Hi Vipul",
+            path: "/profile/myaccount",
+        }
     ];
 
     const [categories, setCategories] = useState([]);
@@ -49,6 +80,11 @@ const Header = ()=>{
         SearchInputRef.current.focus();
         getAllCategories();
     },[])
+    useEffect(()=>{
+        if(localStorage.getItem('token')) {
+            setIsLoggedIn(true);
+        }
+    },[isLoggedIn])
     return (
         <>
         <div className="autohideheader">
@@ -61,27 +97,40 @@ const Header = ()=>{
             </ul>
         </div>
         <div className='header-main flex'>
-            <Link to="/"><img className='headerlogo' src="rd_logo.svg" alt="logo" /></Link>
+            <Link to="/"><img className='headerlogo' src="/rd_logo.svg" alt="logo" /></Link>
             <Dropdown categories = {categories}/>
             <form className="search-box" onSubmit={handleSubmit}>
                 <input ref={SearchInputRef} className="search-input" type='text' placeholder='Find your favorite products'/>
                 <button type="submit" className="searchbtn"><SearchIcon className='searchIcon' /></button>
             </form>
             <ul className='flex'>
+                <li><Link to="/">Select your Pin Code</Link></li>
+                <li><Link to="/cart"><ShoppingCartIcon sx={{fontSize: '1.25rem', paddingRight: '5px'}}/>Cart</Link></li>
+                {
+                    isLoggedIn ? 
+                    (<li><Link to="/profile/myaccount"><PersonIcon sx={{fontSize: '1.25rem', paddingRight: '5px'}}/>Hi Vipul</Link></li>) :
+                    (<li><Link to="/login"><PersonIcon sx={{fontSize: '1.25rem', paddingRight: '5px'}}/>Login</Link></li>)
+                }
+            </ul>
+            {/* <ul className='flex'>
                 {
                     mainHeaderList.map((listItem)=>{
                         if(listItem.displayName === "Cart") {
-                            return <li className='flex'><ShoppingCartIcon className="headericon" key={listItem.id}/><span>{listItem.displayName}</span></li>
+                            return <li className='flex' key={listItem.id}><Link to={listItem.path}><ShoppingCartIcon className="headericon" /><span>{listItem.displayName}</span></Link></li>
                         }
-                        else if(listItem.displayName === "Login") {
-                            return <li className='flex'><PersonIcon className="headericon" key={listItem.id}/><span>{listItem.displayName}</span></li>
+                        else if(!isLoggedIn || listItem.displayName === "Login") {
+                            return <li className='flex' key={listItem.id}><Link to={listItem.path}><PersonIcon className="headericon" /><span>{listItem.displayName}</span></Link></li>
                         }
-                        else {
-                            return <li key={listItem.id}>{listItem.displayName}</li>
+                        else if(isLoggedIn && listItem.displayName === "Hi Vipul"){
+                            return <li className='flex' key={listItem.id}><Link to={listItem.path}><PersonIcon className="headericon" /><span>{listItem.displayName}</span></Link></li>
+                        }
+                        else
+                        {
+                            return <li key={listItem.id}><Link to={listItem.path }>{listItem.displayName}</Link></li>
                         }
                     })
                 }
-            </ul>
+            </ul> */}
         </div>
         {/* <Navbar /> */}
         </>

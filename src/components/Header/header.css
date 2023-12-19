@@ -74,7 +74,7 @@
 .header-main {
     position: sticky;
     top: 0;
-    z-index: 1;
+    z-index: 50;
 }
 
 .header-main ul {
@@ -85,10 +85,17 @@
     color: #fff;
 }
 
-.header-main li {
+.header-main ul li {
     padding: 0 8px;
     border-right: 1px solid #fff;
     cursor: pointer;
+}
+
+.header-main ul li a {
+    text-decoration: none;
+    color: #fff;
+    display: flex;
+    align-items: center;
 }
 
 .header-main li:last-child {

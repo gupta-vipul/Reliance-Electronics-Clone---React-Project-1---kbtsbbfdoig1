@@ -20,6 +20,16 @@ ProductContainer Component
 --------
 */
 
+.product-listing {
+    display: flex;
+}
+.filter-section {
+    flex: 1;
+    
+}
+.sorting-section {
+    flex: 4;
+}
 .productContainer {
     display: flex;
     flex-wrap: wrap;
@@ -30,32 +40,98 @@ ProductContainer Component
     text-decoration: none;
 }
 
-.product-listing {
+
+/* 
+--------
+login Component
+--------
+*/
+.login-container * {
+    /* outline: 1px solid red; */
+}
+
+.login-container {
+    background-color: #fff;
+    padding: 2rem 0;
     display: flex;
+}
+.login-container img {
+    padding: 0 16px;
+    width: 65%;
+    height: 100%;
+}
 
+.login-form-container {
+    margin: 0 16px;
+    width: 40%;
+    box-shadow: 1px 10px 10px rgba(0,0,0,0.2);
 }
-.filter-section {
-    flex: 1;
+.login-form-container h3 {
+    padding: 1rem 1.5rem;
+    font-weight: 500;
+    border-bottom: 1px solid #e0e0e1;
+    background-color: #f9fafd;
 }
-.filter-tag {
+.login-form {
+    padding: 1.5rem 1.5rem 3rem;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+.login-form label{
+    font-size: 0.9rem;
+}
+.login-form button:hover {
+    background-color: #b8181b;
+}
+
+.register-new-user {
+    text-align: center;
+}
+.register-new-user a {
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.9rem;
+}
+/* 
+--------
+Register Component
+--------
+*/
+.register {
     background-color: #fff;
-    width: 98%;
-    padding: 10px 8px;
-    box-sizing: border-box;
-    margin: 0 5px;
+    padding: 3rem;
+}
+.register-form-container h3 {
+    padding: 1rem 1.5rem;
+    font-weight: 500;
+    border-bottom: 1px solid #e0e0e1;
+    background-color: #f9fafd;
+}
+.register-form-container {
+    width: 40%;
+    margin: auto;
+    box-shadow: 1px 10px 10px rgba(0,0,0,0.2);
+}
+
+.register-form {
+    padding: 2rem 1.5rem 2.5rem ;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+.register-form label {
+    font-size: 0.9rem;
+}
+.register-form button:hover {
+    background-color: #b8181b;
+}
+.already-register-user {
+    text-align: center;
+    font-size: 0.9rem;
+}
+.already-register-user a {
+    text-decoration: none;
+    color: #b8181b;
     font-weight: 600;
-    font-size: 1rem;
-    border: 1px solid #e0e0e1;
-    border-top: 0;
-}
-.sorting-section {
-    background-color: #fff;
-    width: 98%;
-    padding: 10px 8px;
-    box-sizing: border-box;
-    margin: 0 5px;
-    font-weight: bold;
-    border: 1px solid #e0e0e1;
-    border-top: 0;
-
 }

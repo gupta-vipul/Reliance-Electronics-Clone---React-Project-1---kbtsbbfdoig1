@@ -14,3 +14,7 @@ export const GET_NEW_ARRIVAL = `https://academics.newtonschool.co/api/v1/ecommer
 export const GET_SEARCH_DATA = (searchTerm) => `https://academics.newtonschool.co/api/v1/ecommerce/electronics/products?search={"name":"${searchTerm}", "description":"${searchTerm}"}`;
 
 export const GET_PRODUCT_DETAILS = (id) => `https://academics.newtonschool.co/api/v1/ecommerce/product/${id}`;
+
+export const USER_LOGIN_API = 'https://academics.newtonschool.co/api/v1/user/login';
+
+export const USER_SIGNUP_API = 'https://academics.newtonschool.co/api/v1/user/signup';

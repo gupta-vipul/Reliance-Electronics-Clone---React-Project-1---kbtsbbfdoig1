@@ -40,7 +40,6 @@ const Dropdown = (props) => {
         anchorEl={anchorEl}
         open={open}
         onClose={handleClose}
-        // style ={{backgroundColor: "var(--secondary-color)"}}
       >
         {categories &&
           Array.isArray(categories) &&

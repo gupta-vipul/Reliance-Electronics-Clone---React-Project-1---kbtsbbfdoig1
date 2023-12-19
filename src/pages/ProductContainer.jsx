@@ -29,14 +29,20 @@ function ProductContainer() {
   return (
     <>
       <Breadcrumb />
-      <div className="productContainer">
-        {products &&
-          Array.isArray(products) &&
-          products.map((product) => {
-            return <ProductCard key={product._id} product={product} />;
-          })
-        }
-      </div>    
+      <div className="product-listing">
+        <div className="filter-section">Filters</div>
+        <div className="sorting-section">
+          <div>Sorting Option</div>  
+          <div className="productContainer">
+            {products &&
+              Array.isArray(products) &&
+              products.map((product) => {
+                return <ProductCard key={product._id} product={product} />;
+              })
+            }
+          </div>    
+        </div>  
+      </div>
     </>
   );
 }

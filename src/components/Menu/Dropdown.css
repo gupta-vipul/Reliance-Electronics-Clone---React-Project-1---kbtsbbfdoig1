@@ -20,6 +20,9 @@
     text-decoration: none;
     color: #fff;
 }
+.css-r8u8y9:hover {
+    background-color: var(--primary-color);
+}
 
 .menuBtn-inset {
     display: flex;

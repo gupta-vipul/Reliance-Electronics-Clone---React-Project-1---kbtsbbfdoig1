@@ -20,7 +20,7 @@
     text-decoration: none;
     color: #fff;
 }
-.css-r8u8y9:hover {
+.css-r8u8y9 a ul li:hover {
     background-color: var(--primary-color);
 }
 

@@ -48,16 +48,11 @@ const Header = ()=>{
             id: uuidv4(), 
             displayName: "Login", 
             path: "/login"
-        },
-        {
-            id: uuidv4(),
-            displayName: "Hi Vipul",
-            path: "/profile/myaccount",
         }
     ];
 
     const [categories, setCategories] = useState([]);
-
+    const [loginText, setLoginText] = useState("");
     async function getAllCategories() {
         const response = await fetch(GET_CATEGORIES, {
             headers: {
@@ -77,14 +72,13 @@ const Header = ()=>{
     }
 
     useEffect(()=>{
-        SearchInputRef.current.focus();
         getAllCategories();
-    },[])
-    useEffect(()=>{
-        if(localStorage.getItem('token')) {
-            setIsLoggedIn(true);
-        }
+        const token = localStorage.getItem('token');
+        setLoginText(token ? 'Logout': 'Login')
     },[isLoggedIn])
+
+    
+    
     return (
         <>
         <div className="autohideheader">
@@ -104,33 +98,20 @@ const Header = ()=>{
                 <button type="submit" className="searchbtn"><SearchIcon className='searchIcon' /></button>
             </form>
             <ul className='flex'>
-                <li><Link to="/">Select your Pin Code</Link></li>
-                <li><Link to="/cart"><ShoppingCartIcon sx={{fontSize: '1.25rem', paddingRight: '5px'}}/>Cart</Link></li>
-                {
-                    isLoggedIn ? 
-                    (<li><Link to="/profile/myaccount"><PersonIcon sx={{fontSize: '1.25rem', paddingRight: '5px'}}/>Hi Vipul</Link></li>) :
-                    (<li><Link to="/login"><PersonIcon sx={{fontSize: '1.25rem', paddingRight: '5px'}}/>Login</Link></li>)
-                }
-            </ul>
-            {/* <ul className='flex'>
                 {
                     mainHeaderList.map((listItem)=>{
                         if(listItem.displayName === "Cart") {
                             return <li className='flex' key={listItem.id}><Link to={listItem.path}><ShoppingCartIcon className="headericon" /><span>{listItem.displayName}</span></Link></li>
                         }
-                        else if(!isLoggedIn || listItem.displayName === "Login") {
-                            return <li className='flex' key={listItem.id}><Link to={listItem.path}><PersonIcon className="headericon" /><span>{listItem.displayName}</span></Link></li>
+                        else if(listItem.displayName === "Login") {
+                            return <li className='flex' key={listItem.id}><Link to={isLoggedIn ? ("/profile/myaccount") : (listItem.path)}><PersonIcon className="headericon" /><span>{loginText}</span></Link></li>
                         }
-                        else if(isLoggedIn && listItem.displayName === "Hi Vipul"){
-                            return <li className='flex' key={listItem.id}><Link to={listItem.path}><PersonIcon className="headericon" /><span>{listItem.displayName}</span></Link></li>
-                        }
-                        else
-                        {
+                        else{
                             return <li key={listItem.id}><Link to={listItem.path }>{listItem.displayName}</Link></li>
                         }
                     })
                 }
-            </ul> */}
+            </ul>
         </div>
         {/* <Navbar /> */}
         </>

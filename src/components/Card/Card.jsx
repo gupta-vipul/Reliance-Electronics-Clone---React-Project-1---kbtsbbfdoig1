@@ -13,7 +13,9 @@ function ProductCard(props) {
     <Link to={`/product/${product._id}`} target="_blank">
       <div className='card'>
         <div className='img-container'>
-          <img src={product.displayImage} alt={product.name} />
+          <img src={product.displayImage} alt={product.name} onError={(e)=>{
+            e.currentTarget.src = "/placeholder.png"
+          }}/>
         </div>
         <div className='product-title'>{product.name}</div>
         <div className='product-ratings'><Rating name="read-only" value={product.ratings} style={{fontSize: '16px'}} readOnly /><span>({product.ratings.toFixed(1)})</span></div>

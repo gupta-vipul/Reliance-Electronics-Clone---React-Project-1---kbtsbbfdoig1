@@ -1,9 +1,10 @@
 import React from "react";
+import './carousel.css'
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import Slider from "react-slick";
 import { Link } from "react-router-dom";
-import ProductCard from "../Card/Card";
+import Slider from "react-slick";
+import SliderCard from "../SliderCard/SliderCard";
 
 
 const Carousel = (props) => {
@@ -23,7 +24,7 @@ const Carousel = (props) => {
             }
             else {
               return (
-                <ProductCard product={listItem} key={listItem._id}/>
+                <SliderCard product={listItem} key={listItem._id}/>
               )
             }
           }) 

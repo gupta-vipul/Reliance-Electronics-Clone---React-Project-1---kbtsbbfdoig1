@@ -21,19 +21,15 @@ const Dropdown = (props) => {
       <Button
         id="basic-button"
         onClick={handleClick}
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          color: "white",
-        }}
       >
-        Menu
+        <div className="menuBtn-inset">
+        <span className="menuBtn-text">Menu</span>
         {open ? (
-          <CloseIcon style={{ fontSize: "20px" }} />
+          <CloseIcon style={{ fontSize: "22px" }} />
         ) : (
-          <MenuIcon style={{ fontSize: "20px" }} />
+          <MenuIcon style={{ fontSize: "22px" }} />
         )}
+        </div>
       </Button>
       <Menu
         id="basic-menu"
@@ -46,7 +42,7 @@ const Dropdown = (props) => {
           categories.map((category) => {
             return (
               <Link to={`/categories/${category}`} key={category}>
-                <MenuItem onClick={handleClose}>
+                <MenuItem sx={{textTransform: 'capitalize',}}onClick={handleClose}>
                   {category}
                 </MenuItem>
               </Link>

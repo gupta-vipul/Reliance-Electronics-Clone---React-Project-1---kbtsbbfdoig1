@@ -1,7 +1,8 @@
 import { Button, TextField } from '@mui/material';
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
 import { USER_LOGIN_API } from '../Constants/APIs';
+import { AuthContext } from '../Context/AuthContext';
 
 function Login() {
     const loginFormData = [
@@ -30,6 +31,7 @@ function Login() {
         appType : "ecommerce"
     });
     const navigate = useNavigate();
+    const {isLoggedIn, setIsLoggedIn} = useContext(AuthContext);
     async function userLogin(userData) {
         try{
             const response = await fetch(USER_LOGIN_API, {
@@ -42,6 +44,7 @@ function Login() {
             delete jsonData['token'];
             navigate("/");
             console.log(jsonData);
+            setIsLoggedIn(true);
         }
         catch(error) {
             console.log(error);

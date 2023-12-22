@@ -52,13 +52,39 @@ const Home = () => {
     autoplaySpeed: 5000,
     pauseOnHover: true,
   };
-  const CardConfig = {
+  const settings = {
     dots: false,
     infinite: true,
     speed: 1000,
     slidesToShow: 5,
     slidesToScroll: 5,
     initialSlide: 0,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 3,
+          infinite: true,
+          dots: false
+        }
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 2,
+          initialSlide: 2
+        }
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1
+        }
+      }
+    ]
   };
   async function getDataForHomePage() {
     try{
@@ -131,12 +157,12 @@ const Home = () => {
   return (
     <>
         <Carousel sliderList={sliderList} config={BannerCarouselConfig}/>
-        <HomeSection sliderList={trendingList} config={CardConfig} categoryName={"Trending"}/>
-        <HomeSection sliderList={bestSellerList} config={CardConfig} categoryName={"Best Seller"} />
-        <HomeSection sliderList={newArrivalList} config={CardConfig} categoryName={"New Arrival"}/>
-        <HomeSection sliderList={tvList} config={CardConfig} categoryName={"Television"}/>
-        <HomeSection sliderList={fridgeList} config={CardConfig} categoryName={"Refrigerator"}/>
-        <HomeSection sliderList={acList} config={CardConfig} categoryName={"Air Conditioner"}/>
+        <HomeSection sliderList={trendingList} config={settings} categoryName={"Trending"}/>
+        <HomeSection sliderList={bestSellerList} config={settings} categoryName={"Best Seller"} />
+        <HomeSection sliderList={newArrivalList} config={settings} categoryName={"New Arrival"}/>
+        <HomeSection sliderList={tvList} config={settings} categoryName={"Television"}/>
+        <HomeSection sliderList={fridgeList} config={settings} categoryName={"Refrigerator"}/>
+        <HomeSection sliderList={acList} config={settings} categoryName={"Air Conditioner"}/>
         {/* <div>Home Section</div> */}
     </>
   )

@@ -3,7 +3,7 @@
     color: #fff;
 }
 
-.css-kk1bwy-MuiButtonBase-root-MuiMenuItem-root:hover {
+.css-p3aknm-MuiButtonBase-root-MuiMenuItem-root:hover {
     background-color: var(--primary-color)!important;
 }
 
@@ -15,3 +15,19 @@
 .css-r8u8y9 {
     background-color: var(--secondary-color);
 }
+
+.css-1km1ehz:hover {
+    text-decoration: none;
+    background-color: var(--primary-color);
+}
+
+.menuBtn-inset {
+    display: flex;
+    justify-content: center;
+    color: #fff;
+}
+
+.menuBtn-text {
+    padding-right: .3125rem;
+}
+

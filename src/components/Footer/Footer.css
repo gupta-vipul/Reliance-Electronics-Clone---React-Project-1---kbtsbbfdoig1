@@ -1,3 +1,8 @@
 .footer {
-    background-color: lightcoral;
+    background-color: var(--secondary-color);
+    color: #fff;
+    
+}
+.footer-lists {
+    display: flex;
 }

@@ -1,7 +1,6 @@
 .home-section-slider {
-    /* background-color: #fafafa; */
-    background-image: linear-gradient(#fafafa, #fff);
-    margin-top: 4px;
+    background-image: linear-gradient(#f9f9f9, #fff);
+    margin-top: 8px;
     padding: 10px;
 }
 
@@ -9,3 +8,26 @@
     width: 90%;
     margin: 0 auto;
 }
+
+.section-header {
+    padding: 1rem;
+    display: flex;
+}
+.section-header span {
+    font-weight: 500;
+    padding: 0 10px 2px 0;
+}
+.section-header button {
+    font-size: small;
+    padding: 4px 12px;
+    background-color: var(--secondary-color);
+    border: none;
+    color: #fff;
+    border-radius: 2px;
+    cursor: pointer;
+}
+.slider-top-container {
+    background-color: #fff;
+}
+
+

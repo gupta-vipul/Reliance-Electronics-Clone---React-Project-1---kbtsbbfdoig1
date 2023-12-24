@@ -1,8 +1,47 @@
 .footer {
     background-color: var(--secondary-color);
     color: #fff;
-    
 }
 .footer-lists {
     display: flex;
+    padding: 0 4rem;
+}
+.footer-list-title {
+    font-size: 1rem;
+    padding: 1rem 0.5rem 0 0 ;
+}
+.flist {
+    width: 25%;
+}
+.footer-list {
+    list-style: none;
+    padding: 0 0.5rem 0.5rem 0;
+    line-height: 2;
+    /* width: 25%; */
+}
+.footer-list-items {
+    text-transform: capitalize;
+    cursor: pointer;
+}
+.footer-list-items:hover {
+    color: #b1b1b1;
+}
+.footer-dis-copy-section {
+    background-color: #0a244a;
+    text-align: center;
+    font-size: 0.9rem;
+}
+.disclaimer-tag {
+    font-weight: 500;
+    padding-top: .5rem;
+    text-decoration: underline;
+    text-underline-offset: .5em;
+}
+.disclaimer-para {
+    padding: 1rem 4rem;
+    font-size: 0.8rem;
+}
+.footer-copyright {
+    border-top: 1px solid #5e5e5e79;
+    padding: .5rem
 }

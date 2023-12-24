@@ -19,3 +19,7 @@ body {
   box-sizing: border-box;
   background-color: var(--globalbackground-color);
 }
+
+.text-capitalise {
+  text-transform: capitalize;
+}

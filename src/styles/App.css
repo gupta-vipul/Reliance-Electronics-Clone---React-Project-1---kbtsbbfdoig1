@@ -177,15 +177,17 @@ Register Component
 Products Details
 --------
 */
-.product-details *{
-    outline: 1px solid red;
-}
+
 .product-details {
     display: flex;
+    border-bottom: 1px solid #e0e0e1;
+    overflow: hidden;
 }
 
 .product-images-display {
     flex: 2;
+    background-color: #fff;
+    margin: 0 2px 0 0;
 }
 .product-images-display img{
     width: 100%;
@@ -194,6 +196,217 @@ Products Details
 .product-details-display {
     flex: 3;
 }
+.product-details-title-rating {
+    background-color: #fff;
+    margin: 0 0 2px 2px;
+    padding: 1rem;
+}
 .product-details-title {
+    font-weight: 500;
+    font-size: 1.2rem;
+}
+.product-details-rating {
+    display: flex;
+    align-items: center;
+}
+.product-features-price-section {
+    display: flex;
+    background-color: #fff;
+    margin: 4px 0 0 2px;
+    padding: 0 0 1.5rem 0;
+    height: 80%;
+}
+.product-features-offer-section {
+    flex: 1.8;
+    padding: 1.5rem 1rem 0 1rem;
+}
+.product-addtocart-price-section {
+    flex: 1.2;
+    border-left: 1px solid #e0e0e1;
+    padding: 1.5rem 1rem 0 1rem;
+}
+.product-featureslist-tag {
+    text-transform: capitalize;
+    font-weight: 700;
+    color: #000000b3;
+    font-size: .9375rem;
+}
+.product-featureslist {
+    margin: .5rem 0 0 1rem;
+    padding: 0 0 0 4px;
+    line-height: 2;
+    font-size: 0.9rem;
+    color: #585757;
+}
+.product-details-price span{
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: var(--secondary-color);
+}
+.product-details-btn{
+    display: flex;
+    gap: 10px;
+    padding: 1rem 0;
+}
 
+.product-details-panel-list {
+    display: flex;
+    gap: 20px;
+}
+.product-details-panel-list li{
+    list-style: none;
+}
+.container {
+    width: 95%;
+    margin: 0 auto;
+}
+.product-description-review-section {
+    background-color: #fff;
+}
+
+/* 
+--------
+Cart Component
+--------
+*/
+
+.cart-loader {
+    padding: 3rem;
+    height: 15rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #fff;
+}
+
+.empty-cart-container {
+    background-color: #f5f7f7;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 2rem;
+    align-items: center;
+    padding: 3rem;
+}
+
+.empty-cart-text {
+    text-transform: capitalize;
+    color: #585757;
+    font-size: 1.5rem;
+    font-weight: 400;
+}
+.empty-cart-button {
+    background-color: var(--primary-color);
+    border: none;
+    border-radius: 3px;
+    padding: 15px 40px;
+    text-transform: uppercase;
+    color: #fff;
+    font-weight: 600;
+    cursor: pointer;
+}
+.empty-cart-button:hover {
+    background-color: #b8181b;
+}
+
+.cart-container {
+    display: flex;
+    padding: 1.5rem 3rem;
+}
+.cart-product-listing{
+    flex: 3.5;
+    margin: 0 1.25rem 0 0;
+    display: flex;
+    flex-direction: column;
+    gap: .625rem;
+}
+.cart-bar {
+    background-color: #fff;
+    border: 1px solid #e0e0e1;
+    box-shadow: 1px 1px 5px rgba(0,0,0,0.2);
+    border-radius: 5px;
+    display: flex;
+    padding: 1rem;
+    justify-content: space-between;
+}
+.cart-product-details a {
+    text-decoration: none;
+}
+.checkout-form {
+    flex: 1.5;
+    padding: 0 0 0 .625rem;
+    display: flex;
+    flex-direction: column;
+    gap: .9375rem;
+}   
+
+.cart-checkout-btn {
+    width: 100%;
+    padding: .625rem 0;
+    background-color: var(--primary-color);
+    text-transform: uppercase;
+    font-weight: 600;
+    color: #fff;
+    font-size: 0.75rem;
+    border: 1px solid var(--primary-color);
+    border-radius: 3px;
+
+}
+
+.checkout-total-summary {
+    border: 1px solid #e0e0e1;
+    border-radius: 3px;
+    background-color: #fff;
+    padding: 1rem;
+    color: #585757;
+    line-height: 2;
+    box-shadow: 1px 1px 5px rgba(0,0,0,0.2);
+}   
+.cart-total-price {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9rem;
+}
+.price-without-discount {
+    font-weight: 600;
+}
+.cart-delivery-charges {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9rem;
+    border-bottom: 1px solid #e0e0e1;
+    padding-bottom: .5rem;
+}
+.deilvery-price-tag {
+    text-transform: uppercase;
+    color: #43A047;
+}
+.checkout-form-heading {
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+.amt-payable-tag {
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    font-weight: 600;   
+
+}
+.cart-total-discounted-price {
+    display: flex;
+    justify-content: space-between;
+    padding: .2rem 0;
+    align-items: center;
+    border-bottom: 1px solid #e0e0e1;
+    margin-bottom: 1rem;
+}
+.payable-amt {
+    color: var(--secondary-color);
+    font-weight: 600;
+    font-size: 1.02rem;
+}
+.checkout-static-message {
+    line-height: 1.5;
+    font-size: 0.9rem;
+    font-weight: 500;
 }

@@ -8,6 +8,7 @@ import PersonIcon from '@mui/icons-material/Person';
 import { GET_CATEGORIES, GET_SEARCH_DATA } from '../../Constants/APIs';
 import { SearchContext } from '../../Context/SearchContext';
 import { AuthContext } from '../../Context/AuthContext';
+import { CartContext } from '../../Context/CartContext';
 import Navbar from '../Navbar';
 import Dropdown from '../Menu/Dropdown';
 
@@ -15,6 +16,7 @@ const Header = ()=>{
     const SearchInputRef = useRef();
     const {isLoggedIn, setIsLoggedIn} = useContext(AuthContext);
     const {setSearchInputText} = useContext(SearchContext);
+    const {cartCount} = useContext(CartContext);
     const navigate = useNavigate();
     const autoHideHeaderList = [
         {
@@ -71,13 +73,25 @@ const Header = ()=>{
         }
     }
 
+    function handleClick() {
+        if(loginText === "Logout") {
+            // console.log("Logout");
+            localStorage.removeItem('token');
+            navigate("/")
+            setIsLoggedIn(false);
+        }else {
+            navigate("/login");
+        }
+    }
+    
     useEffect(()=>{
-        getAllCategories();
+        getAllCategories(); 
+    },[])
+
+    useEffect(()=>{
         const token = localStorage.getItem('token');
         setLoginText(token ? 'Logout': 'Login')
     },[isLoggedIn])
-
-    
     
     return (
         <>
@@ -101,10 +115,10 @@ const Header = ()=>{
                 {
                     mainHeaderList.map((listItem)=>{
                         if(listItem.displayName === "Cart") {
-                            return <li className='flex' key={listItem.id}><Link to={listItem.path}><ShoppingCartIcon className="headericon" /><span>{listItem.displayName}</span></Link></li>
+                            return <li className='cart-icon-header flex' key={listItem.id}><Link to={listItem.path}><ShoppingCartIcon className="headericon" /><span>{listItem.displayName}{cartCount < 1 ? (null) : (<div className='cart-count-header'>{cartCount}</div>)}</span></Link></li>
                         }
                         else if(listItem.displayName === "Login") {
-                            return <li className='flex' key={listItem.id}><Link to={isLoggedIn ? ("/profile/myaccount") : (listItem.path)}><PersonIcon className="headericon" /><span>{loginText}</span></Link></li>
+                            return <li className='flex' key={listItem.id} onClick={handleClick}><PersonIcon className="headericon" /><span>{loginText}</span></li>
                         }
                         else{
                             return <li key={listItem.id}><Link to={listItem.path }>{listItem.displayName}</Link></li>

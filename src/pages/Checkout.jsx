@@ -1,9 +1,10 @@
 import React from 'react'
+import IsAuth from '../components/IsAuth/IsAuth';
 
-function checkout() {
+function Checkout() {
   return (
     <div>checkout</div>
   )
 }
 
-export default checkout;
+export default IsAuth(Checkout);

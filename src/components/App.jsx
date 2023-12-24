@@ -6,6 +6,7 @@ import '@fontsource/roboto/700.css';
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import { SearchProvider } from "../Context/SearchContext";
 import { AuthProvider } from "../Context/AuthContext";
+import { CartProvider } from "../Context/CartContext";
 import Home from "../pages/Home";
 import Header from "./Header";
 import ProductContainer from "../pages/ProductContainer";
@@ -15,6 +16,7 @@ import Register from "../pages/Register";
 import Cart from "../pages/Cart";
 import Footer from "./Footer/Footer";
 import NotFoundPage from "../pages/NotFoundPage";
+import Checkout from "../pages/Checkout";
 
 function App() {
   
@@ -22,17 +24,20 @@ function App() {
     <Router>
       <SearchProvider>
         <AuthProvider>
-          <Header />
-          <Routes>
-            <Route path="/" element={<Home />}/>
-            <Route path="/categories/:productCategory" element={<ProductContainer />}/>
-            <Route path="/product/:product_id" element={<ProductDetail />} />
-            <Route path="/login" element={<Login />}/>
-            <Route path="/register" element={<Register />}/>
-            <Route path="/cart" element={<Cart />} />
-            <Route path="*" element={<NotFoundPage />}/>
-          </Routes>
-          <Footer />
+          <CartProvider>
+            <Header />
+            <Routes>
+              <Route path="/" element={<Home />}/>
+              <Route path="/categories/:productCategory" element={<ProductContainer />}/>
+              <Route path="/product/:product_id" element={<ProductDetail />} />
+              <Route path="/login" element={<Login />}/>
+              <Route path="/register" element={<Register />}/>
+              <Route path="/cart" element={<Cart />} />
+              <Route path="/checkout" element={<Checkout />} />
+              <Route path="*" element={<NotFoundPage />}/>
+            </Routes>
+            <Footer />
+          </CartProvider>
         </AuthProvider>
       </SearchProvider>
     </Router>

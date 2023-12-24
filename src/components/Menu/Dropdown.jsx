@@ -40,13 +40,60 @@ const Dropdown = (props) => {
         {categories &&
           Array.isArray(categories) &&
           categories.map((category) => {
-            return (
-              <Link to={`/categories/${category}`} key={category}>
-                <MenuItem sx={{textTransform: 'capitalize',}}onClick={handleClose}>
-                  {category}
-                </MenuItem>
-              </Link>
-            );
+            if(category === "ac") {
+              return (
+                <Link to={`/categories/${category}`} key={category}>
+                  <MenuItem sx={{textTransform: 'capitalize',}} onClick={handleClose}>
+                    air conditioners
+                  </MenuItem>
+                </Link>
+              );
+            }
+            else if(category === "health") {
+              return (
+                <Link to={`/categories/${category}`} key={category}>
+                  <MenuItem sx={{textTransform: 'capitalize',}} onClick={handleClose}>
+                    health care
+                  </MenuItem>
+                </Link>
+              )
+            }
+            else if(category === "kitchenappliances") {
+              return (
+                <Link to={`/categories/${category}`} key={category}>
+                  <MenuItem sx={{textTransform: 'capitalize',}} onClick={handleClose}>
+                    kitchen appliances
+                  </MenuItem>
+                </Link>
+              )
+            }
+            else if(category === "tv") {
+              return (
+                <Link to={`/categories/${category}`} key={category}>
+                  <MenuItem sx={{textTransform: 'capitalize',}} onClick={handleClose}>
+                    televisions
+                  </MenuItem>
+                </Link>
+              )
+            }
+            else if(category === "washingMachine") {
+              return (
+                <Link to={`/categories/${category}`} key={category}>
+                  <MenuItem sx={{textTransform: 'capitalize',}} onClick={handleClose}>
+                    washing machine
+                  </MenuItem>
+                </Link>
+              )
+            }
+            else {
+              return (
+                <Link to={`/categories/${category}`} key={category}>
+                  <MenuItem sx={{textTransform: 'capitalize',}} onClick={handleClose}>
+                    {category}
+                  </MenuItem>
+                </Link>
+              )
+            }
           })}
       </Menu>
     </div>

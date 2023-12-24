@@ -43,7 +43,6 @@ function Login() {
             localStorage.setItem('token', jsonData.token);
             delete jsonData['token'];
             navigate("/");
-            console.log(jsonData);
             setIsLoggedIn(true);
         }
         catch(error) {

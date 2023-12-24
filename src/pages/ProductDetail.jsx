@@ -5,6 +5,7 @@ import Breadcrumb from '../components/Breadcrumb/breadcrumb';
 import Carousel from '../components/Carousel/carousel';
 import { INRConversion } from '../utils/NumberConversion';
 import { Button, Rating } from '@mui/material';
+import Loader from '../components/Loader/Loader';
 
 function ProductDetail() {
   const { product_id } = useParams();
@@ -12,7 +13,9 @@ function ProductDetail() {
   const [productDetails, setProductDetails] = useState({});
   const [productReviews, setProductReviews] = useState([]);
   const [btnLoader, setBtnLoader] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   async function getProductDetails(id) {
+    setIsLoading(true);
     try{
       const response = await fetch(GET_PRODUCT_DETAILS(id), {
         headers: {
@@ -25,6 +28,9 @@ function ProductDetail() {
     }
     catch(error) {
       console.log(error);
+    }
+    finally {
+      setIsLoading(false);
     }
   }
   async function getProductReviews(id) {
@@ -84,7 +90,9 @@ function ProductDetail() {
     getProductReviews(product_id);
   },[])
   return (
-    <div>
+    <>{isLoading ? 
+      (<div className='loader'><Loader /></div>) :
+      (<div>
       <Breadcrumb />
       <div className='product-details'>
         <div className='product-images-display'>
@@ -152,7 +160,9 @@ function ProductDetail() {
             }
         </div>
       </div>
-    </div>
+      </div>
+      )}
+    </>
   )
 }
 

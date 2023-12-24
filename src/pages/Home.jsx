@@ -163,7 +163,7 @@ const Home = () => {
   return (
     <>
         {isLoading ? (
-        <div className='homepage-loader'><Loader /></div>
+        <div className='loader'><Loader /></div>
         ) : 
         (<>
           <Carousel sliderList={sliderList} config={BannerCarouselConfig}/>

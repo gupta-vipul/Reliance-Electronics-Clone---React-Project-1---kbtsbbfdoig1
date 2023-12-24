@@ -13,7 +13,19 @@
     align-items: center;
 }
 
-
+/* 
+-------
+Home Page
+-------
+*/
+.homepage-loader {
+    height: 20rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #fff;
+}
+ 
 /* 
 --------
 ProductContainer Component

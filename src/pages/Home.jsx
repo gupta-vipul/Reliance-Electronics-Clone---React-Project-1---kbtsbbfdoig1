@@ -3,6 +3,7 @@ import Carousel from '../components/Carousel/carousel';
 import { v4 as uuidv4 } from 'uuid';
 import HomeSection from '../components/HomeSection/HomeSection';
 import { GET_BESTSELLER_LIST, GET_NEW_ARRIVAL, GET_PRODUCTS_CATEGORYWISE, GET_PRODUCTS_FOR_HOMEPAGE } from '../Constants/APIs';
+import Loader from '../components/Loader/Loader';
 
 const Home = () => {
   const [trendingList, setTrendingList] = useState([]);
@@ -11,6 +12,7 @@ const Home = () => {
   const [tvList, setTvList] = useState([]);
   const [acList, setAcList] = useState([]);
   const [fridgeList, setFridgeList] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
   const sliderList = [
     {
       id: uuidv4(),
@@ -87,6 +89,7 @@ const Home = () => {
     ]
   };
   async function getDataForHomePage() {
+    setIsLoading(true);
     try{
       const response = await fetch(GET_PRODUCTS_FOR_HOMEPAGE,{
         headers: {
@@ -98,6 +101,9 @@ const Home = () => {
     }
     catch(error) {
       console.log("error", error);
+    }
+    finally{
+      setIsLoading(false);
     }
   }
   async function getBestSellerList() {
@@ -156,14 +162,19 @@ const Home = () => {
   },[])
   return (
     <>
-        <Carousel sliderList={sliderList} config={BannerCarouselConfig}/>
-        <HomeSection sliderList={trendingList} config={settings} categoryName={"Trending"}/>
-        <HomeSection sliderList={bestSellerList} config={settings} categoryName={"Best Seller"} />
-        <HomeSection sliderList={newArrivalList} config={settings} categoryName={"New Arrival"}/>
-        <HomeSection sliderList={tvList} config={settings} categoryName={"Television"}/>
-        <HomeSection sliderList={fridgeList} config={settings} categoryName={"Refrigerator"}/>
-        <HomeSection sliderList={acList} config={settings} categoryName={"Air Conditioner"}/>
-        {/* <div>Home Section</div> */}
+        {isLoading ? (
+        <div className='homepage-loader'><Loader /></div>
+        ) : 
+        (<>
+          <Carousel sliderList={sliderList} config={BannerCarouselConfig}/>
+          <HomeSection sliderList={trendingList} config={settings} categoryName={"Trending"}/>
+          <HomeSection sliderList={bestSellerList} config={settings} categoryName={"Best Seller"} />
+          <HomeSection sliderList={newArrivalList} config={settings} categoryName={"New Arrival"}/>
+          <HomeSection sliderList={tvList} config={settings} categoryName={"Television"}/>
+          <HomeSection sliderList={fridgeList} config={settings} categoryName={"Refrigerator"}/>
+          <HomeSection sliderList={acList} config={settings} categoryName={"Air Conditioner"}/>
+          </>
+        )}
     </>
   )
 }

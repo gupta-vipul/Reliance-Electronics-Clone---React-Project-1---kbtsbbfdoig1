@@ -422,3 +422,21 @@ Cart Component
     font-size: 0.9rem;
     font-weight: 500;
 }
+
+.page-not-found {
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    background-color: #fff;
+}
+._404-message {
+    font-size: 1.4rem;
+    line-height: 1.5;
+    color: #585757;
+}
+._404-message a {
+    text-decoration: none;
+}

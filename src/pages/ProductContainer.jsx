@@ -1,14 +1,15 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { GET_PRODUCTS_CATEGORYWISE } from "../Constants/APIs";
+import { GET_PRODUCTS_CATEGORYWISE, GET_SEARCH_DATA } from "../Constants/APIs";
 import ProductCard from "../components/Card/Card";
 import Loader from '../components/Loader/Loader';
 import { SearchContext } from "../Context/SearchContext";
 import Breadcrumb from "../components/Breadcrumb/breadcrumb";
 
 function ProductContainer() {
-  const { productCategory } = useParams();
+  const { productCategory, userInput } = useParams();
   const { searchInputText } = useContext(SearchContext);
+
   const [products, setProducts] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   async function getAllProductsCategoryWise(category) {
@@ -29,10 +30,37 @@ function ProductContainer() {
       setIsLoading(false);
     }
   }
+  async function getSearchResult(userInput) {
+    setIsLoading(true);
+    try{
+      const response = await fetch(GET_SEARCH_DATA(userInput), {
+      headers: {
+        'projectID' : 'kbtsbbfdoig1',
+      }
+      });
+      const jsonData = await response.json();
+      // console.log(jsonData);
+      setProducts(jsonData.data);
+
+    }
+    catch(error) {
+      console.log(error);
+    }
+    finally {
+      setIsLoading(false);
+    }
+  }
 
   useEffect(() => {
-    getAllProductsCategoryWise(productCategory);
-  }, [productCategory]);
+    if(productCategory)
+      getAllProductsCategoryWise(productCategory);
+    else if(userInput)
+      getSearchResult(userInput)
+  }, [productCategory, userInput]);
+
+  useEffect(()=>{
+    getSearchResult(searchInputText);
+  },[searchInputText])
   return (
     <>{isLoading ? (<div className="loader"><Loader /></div>) :
       (<>

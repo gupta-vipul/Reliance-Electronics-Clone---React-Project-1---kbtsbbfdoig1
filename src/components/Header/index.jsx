@@ -69,6 +69,7 @@ const Header = ()=>{
     function handleSubmit(e){
         e.preventDefault();
         if(SearchInputRef.current.value !== "") {
+            navigate(`/search/${SearchInputRef.current.value}`);    
             setSearchInputText(SearchInputRef.current.value);
         }
     }

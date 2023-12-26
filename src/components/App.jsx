@@ -29,6 +29,7 @@ function App() {
             <Routes>
               <Route path="/" element={<Home />}/>
               <Route path="/categories/:productCategory" element={<ProductContainer />}/>
+              <Route path="/search/:userInput" element={<ProductContainer />} />
               <Route path="/product/:product_id" element={<ProductDetail />} />
               <Route path="/login" element={<Login />}/>
               <Route path="/register" element={<Register />}/>

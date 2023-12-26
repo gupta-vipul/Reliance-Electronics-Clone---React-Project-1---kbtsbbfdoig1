@@ -1,15 +1,16 @@
 import React from 'react';
 import './HomeSection.css';
 import Carousel from '../Carousel/carousel';
-import { Button } from '@mui/material';
+import { Link, useParams } from 'react-router-dom';
 
 function HomeSection({sliderList, categoryName, config}) {
+  const { productCategory } = useParams();
   return (
     <div className='home-section-slider'>
       <div>
         <div className='section-header'>
           <span>{categoryName}</span>
-          <button>View all</button>
+          <Link to={`page/${categoryName}`}><button>View all</button></Link>
         </div>
         <div className='slider-top-container'>
           <div className='slider-container'>

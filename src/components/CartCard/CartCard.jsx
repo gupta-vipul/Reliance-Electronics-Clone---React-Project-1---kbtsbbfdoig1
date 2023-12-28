@@ -1,35 +1,10 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import './CartCard.css'
-import { Link, useNavigate } from 'react-router-dom';
-import { REMOVE_ITEM_FROM_CART } from '../../Constants/APIs';
-import { CartContext } from '../../Context/CartContext';
+import { Link } from 'react-router-dom';
 
 function CartCard(props) {
-    const {item} = props;
-    const navigate = useNavigate();
-    const {cartCount, setCartCount} = useContext(CartContext);
-    async function removeProduct(id) {
-        try{
-            const response = await fetch(REMOVE_ITEM_FROM_CART(id), {
-            method: 'DELETE',
-            headers: {
-              'projectID' : 'kbtsbbfdoig1',
-              'Authorization': `Bearer ${localStorage.getItem('token')}`,
-            }
-            });
-            const jsonData = await response.json();
-            console.log(jsonData);
-            if(cartCount >= 1){
-                setCartCount(prev => prev - 1);
-            }
-        }
-        catch(error) {
-            console.log(error);
-        } 
-    }
-    function handleClick(id) {
-        removeProduct(id);
-    }
+    const {item, removeProduct} = props;
+    
   return (
     <div className='cart-card'>
         <div className='cart-product-details'>    
@@ -53,7 +28,7 @@ function CartCard(props) {
             <div>{item.quantity}</div>
         </div>
         <div className='cart-item-control'>
-            <button className='cart-item-remove-btn' onClick={()=>handleClick(item.product._id)}>remove</button>
+            <button className='cart-item-remove-btn' onClick={removeProduct}>remove</button>
             <button className='cart-item-wishlist-btn'>move to wishlist</button>
         </div>
     </div>

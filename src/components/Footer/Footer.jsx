@@ -8,11 +8,17 @@ function Footer(props) {
       _id : uuidv4(),
       footerListTitle : 'product categories',
       footerList : [
-        "smartphones",
-        "laptop",
         "air conditioner",
-        "television",
+        "audio",
+        "health care",
         "kitchen appliances",
+        "laptop",
+        "smartphones",
+        "refrigerator",
+        "tablet",
+        "travel",
+        "television",
+        "washing machine"
       ],
     },
     {

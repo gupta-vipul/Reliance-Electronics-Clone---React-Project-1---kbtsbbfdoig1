@@ -1,15 +1,17 @@
-import React, { useEffect, useState } from 'react'
-import { Navigate, useNavigate, useParams } from 'react-router-dom';
+import React, { useContext, useEffect, useState } from 'react'
+import { useNavigate, useParams } from 'react-router-dom';
 import { GET_PRODUCT_DETAILS, PATCH_ITEM_TO_CART, PRODUCT_REVIEW } from '../Constants/APIs';
 import Breadcrumb from '../components/Breadcrumb/breadcrumb';
 import Carousel from '../components/Carousel/carousel';
 import { INRConversion } from '../utils/NumberConversion';
 import { Button, Rating } from '@mui/material';
 import Loader from '../components/Loader/Loader';
+import { CartContext } from '../Context/CartContext';
 
 function ProductDetail() {
   const { product_id } = useParams();
   const navigate = useNavigate();
+  const {setCartCount} = useContext(CartContext);
   const [productDetails, setProductDetails] = useState({});
   const [productReviews, setProductReviews] = useState([]);
   const [btnLoader, setBtnLoader] = useState(false);
@@ -62,8 +64,8 @@ function ProductDetail() {
         })
       });
       const jsonData = await response.json();
-      console.log(jsonData);
       setBtnLoader(false);
+      setCartCount(jsonData.results);
       navigate("/cart")
     }
     catch(error) {

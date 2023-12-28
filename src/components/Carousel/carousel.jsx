@@ -8,18 +8,18 @@ import SliderCard from "../SliderCard/SliderCard";
 
 
 const Carousel = (props) => {
-  const {config, sliderList} = props;
+  const {config, sliderList, classes} = props;
   // console.log(sliderList);
   return (
     <>
-      <Slider {...config}>
+      <Slider className={classes ? classes : null} {...config}>
         {
           sliderList && 
           Array.isArray(sliderList) && 
           sliderList.map((listItem)=>{
             if(listItem.imageUrl){
               return (
-                <Link to="ac" key={listItem.id}><div><img src={listItem.imageUrl} alt={listItem.displayName} /></div></Link>
+                <Link to={listItem.path} key={listItem.id}><div><img src={listItem.imageUrl} alt={listItem.displayName} /></div></Link>
               )
             }
             else {

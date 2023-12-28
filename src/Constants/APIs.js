@@ -13,6 +13,8 @@ export const GET_NEW_ARRIVAL = `https://academics.newtonschool.co/api/v1/ecommer
 
 export const GET_SEARCH_DATA = (searchTerm) => `https://academics.newtonschool.co/api/v1/ecommerce/electronics/products?search={"name":"${searchTerm}", "description":"${searchTerm}"}`;
 
+export const GET_SELLERTAG_PRODUCT = (category)=> `https://academics.newtonschool.co/api/v1/ecommerce/electronics/products?filter={"sellerTag":"${category}"}`;
+
 // User API
 
 export const USER_LOGIN_API = 'https://academics.newtonschool.co/api/v1/user/login';
@@ -31,3 +33,7 @@ export const GET_CART_ITEMS = "https://academics.newtonschool.co/api/v1/ecommerc
 export const PATCH_ITEM_TO_CART = (id)=> `https://academics.newtonschool.co/api/v1/ecommerce/cart/${id}`;
 
 export const REMOVE_ITEM_FROM_CART = (id)=> `https://academics.newtonschool.co/api/v1/ecommerce/cart/${id}`;
+
+// Pincode get api
+
+export const GET_PINCODE_DETAILS = (pincode) => `https://api.postalpincode.in/pincode/${pincode}`;

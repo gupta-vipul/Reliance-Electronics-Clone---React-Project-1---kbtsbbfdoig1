@@ -17,6 +17,8 @@ import Cart from "../pages/Cart";
 import Footer from "./Footer/Footer";
 import NotFoundPage from "../pages/NotFoundPage";
 import Checkout from "../pages/Checkout";
+import MyWishlist from "../pages/MyWishlist";
+import MyOrders from "../pages/MyOrders";
 
 function App() {
   
@@ -29,12 +31,17 @@ function App() {
             <Routes>
               <Route path="/" element={<Home />}/>
               <Route path="/categories/:productCategory" element={<ProductContainer />}/>
+              <Route path="/page/:itemsCategories" element={<ProductContainer />}/>
               <Route path="/search/:userInput" element={<ProductContainer />} />
               <Route path="/product/:product_id" element={<ProductDetail />} />
               <Route path="/login" element={<Login />}/>
               <Route path="/register" element={<Register />}/>
               <Route path="/cart" element={<Cart />} />
               <Route path="/checkout" element={<Checkout />} />
+              <Route path="/profile">
+                <Route path="mywishlist" element={<MyWishlist />}/>
+                <Route path="myorders" element={<MyOrders/>}/>
+              </Route>
               <Route path="*" element={<NotFoundPage />}/>
             </Routes>
             <Footer />

@@ -5,6 +5,7 @@
 .footer-lists {
     display: flex;
     padding: 0 4rem;
+    flex-wrap: wrap;
 }
 .footer-list-title {
     font-size: 1rem;
@@ -17,11 +18,9 @@
     list-style: none;
     padding: 0 0.5rem 0.5rem 0;
     line-height: 2;
-    /* width: 25%; */
 }
 .footer-list-items {
     text-transform: capitalize;
-    cursor: pointer;
     font-size: 0.9rem;
 }
 .footer-list-items:hover {

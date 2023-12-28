@@ -3,6 +3,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
 import { USER_LOGIN_API } from '../Constants/APIs';
 import { AuthContext } from '../Context/AuthContext';
+import Toast from '../components/Toast/Toast';
 
 function Login() {
     const loginFormData = [
@@ -14,6 +15,7 @@ function Login() {
             size: "small",
             fullWidth: true,
             helperText: "",
+            required: true,
         },
         {
             id: "password",
@@ -23,6 +25,7 @@ function Login() {
             size: "small",
             fullWidth: true,
             helperText: "",
+            required: true,
         }
     ];
     const [loginCredentials, setLoginCredentails] = useState({
@@ -30,8 +33,12 @@ function Login() {
         password : "",
         appType : "ecommerce"
     });
-    const navigate = useNavigate();
     const {isLoggedIn, setIsLoggedIn} = useContext(AuthContext);
+    const [open, setOpen] = useState(false);
+    const [message, setMessage] = useState("");
+    const [severity, setSeverity] = useState("info");
+    const navigate = useNavigate();
+
     async function userLogin(userData) {
         try{
             const response = await fetch(USER_LOGIN_API, {
@@ -40,14 +47,29 @@ function Login() {
                 body: JSON.stringify(userData),
             });
             const jsonData = await response.json();
-            localStorage.setItem('token', jsonData.token);
-            delete jsonData['token'];
-            navigate("/");
-            setIsLoggedIn(true);
+            if(jsonData.status === "success") {
+                setOpen(true);
+                setSeverity("success");
+                setMessage(jsonData.message);
+                localStorage.setItem('token', jsonData.token);
+                delete jsonData['token'];
+                navigate("/");
+                setIsLoggedIn(true);
+            }else {
+                setSeverity('error');
+                setMessage(jsonData.message);
+                setOpen(true);
+            }
         }
         catch(error) {
             console.log(error);
         }
+    }
+    function handleSnackbarClose(e, reason) {
+        if(reason === 'clickaway') {
+            return;
+        }
+        setOpen(false);
     }
 
     useEffect(()=>{
@@ -66,6 +88,13 @@ function Login() {
     }
   return (
     <div className="login-container">
+        <Toast 
+            open={open}
+            duration={5000}
+            onClose={handleSnackbarClose}
+            severity={severity}
+            message={message}
+        />
         <img src="LoginWebBanner.jpeg" alt="Login-placeholder-banner" />
         <div className='login-form-container'>
             <h3>Login</h3>
@@ -82,12 +111,13 @@ function Login() {
                                 size={formItem.size}
                                 helperText={formItem.helperText}
                                 fullWidth={formItem.fullWidth}
+                                required={formItem.required}
                             />
                         )
                     })
                 }
                 <Button sx={{backgroundColor: 'var(--primary-color)'}} variant="contained" type='submit' fullWidth>PROCEED</Button>
-                <div className='register-new-user'>New User: <Link to="/register">Register New Account</Link></div>
+                <div className='register-new-user'>Don't have an account? <Link to="/register">Register</Link></div>
             </form>
         </div>
     </div>

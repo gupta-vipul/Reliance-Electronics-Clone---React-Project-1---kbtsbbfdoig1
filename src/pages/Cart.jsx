@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { GET_CART_ITEMS } from '../Constants/APIs';
+import { GET_CART_ITEMS, REMOVE_ITEM_FROM_CART } from '../Constants/APIs';
 import { Link, useNavigate } from 'react-router-dom';
 import CartCard from '../components/CartCard/CartCard';
 import IsAuth from '../components/IsAuth/IsAuth';
@@ -22,7 +22,8 @@ function Cart() {
       });
       const jsonData = await response.json();
       setCartItems(jsonData.data);
-      console.log(jsonData);
+      setCartCount(jsonData.results);
+      // console.log(jsonData);
     }
     catch(error) {
       console.log(error);
@@ -31,22 +32,32 @@ function Cart() {
       setIsLoading(false);
     }
   }
-
+  async function removeProduct(id) {
+    try{
+      const response = await fetch(REMOVE_ITEM_FROM_CART(id), {
+      method: 'DELETE',
+      headers: {
+        'projectID' : 'kbtsbbfdoig1',
+        'Authorization': `Bearer ${localStorage.getItem('token')}`,
+      }
+      });
+      const jsonData = await response.json();
+      console.log(jsonData);
+      getCartItems();
+      setCartItems(jsonData.data);
+    }
+    catch(error) {
+      console.log(error);
+    } 
+  }
+  
   function checkout() {
     navigate('/checkout');
   }
   useEffect(()=>{
     getCartItems();
-    console.log("rendering cart component")
   },[])
-  useEffect(()=>{
-    if(cartItems.items != 0 && cartItems.items?.length) {
-      // console.log(cartCount);
-      setCartCount(cartItems.items.length);
-    } 
-  },[cartCount])
 
-  
   return (
     <div className='cart'>
       {
@@ -73,7 +84,7 @@ function Cart() {
                 Array.isArray(cartItems.items) && 
                 cartItems.items.map((cartListItem)=>{
                   return (
-                    <CartCard item={cartListItem} key={cartListItem._id}/>
+                    <CartCard item={cartListItem} key={cartListItem._id} removeProduct={()=>removeProduct(cartListItem.product._id)}/>
                   )
                 })
               }

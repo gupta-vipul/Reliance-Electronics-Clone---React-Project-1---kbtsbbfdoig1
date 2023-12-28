@@ -17,31 +17,31 @@ const Home = () => {
     {
       id: uuidv4(),
       imageUrl: "Air-Purifier-1365x260.jpeg",
-      path: "ac",
+      path: "categories/ac",
       displayName: "Air-Purifier-1365x260",
     },
     {
       id: uuidv4(),
       imageUrl: "Audio-Banner-D.jpeg",
-      path: "audio",
+      path: "categories/audio",
       displayName: "Audio-Banner"
     },
     {
       id: uuidv4(),
       imageUrl: "Best-Selling-Smartphones-HPMC-Banners-D.jpeg",
-      path: "mobile",
+      path: "categories/mobile",
       displayName: "Best-Selling-Smartphones-HPMC-Banners",
     },
     {
       id: uuidv4(),
       imageUrl: "Digital-Clearance-Sale-Carousel-Banner-30.11.2023.jpeg",
-      path: "/",
+      path: "categories/laptop",
       displayName: "Digital-Clearance-Sale-Carousel-Banner",
     },
     {
       id: uuidv4(),
       imageUrl: "Mobile-Accessories-Fiesta-banner-D-1-Dec-rev-1.jpeg",
-      path: "/mobile",
+      path: "categories/mobile",
       displayName: "Mobile-Accessories-Fiesta-banner",
     }
   ];
@@ -159,6 +159,11 @@ const Home = () => {
     getProductCategoryWise('ac', 10);
     getProductCategoryWise('refrigerator', 10);
 
+    // TODO: Force scroll page to the top[not working]
+    
+    // window.onbeforeunload = () => {
+    //   window.scrollTo(0,0);
+    // }
   },[])
   return (
     <>
@@ -166,7 +171,7 @@ const Home = () => {
         <div className='loader'><Loader /></div>
         ) : 
         (<>
-          <Carousel sliderList={sliderList} config={BannerCarouselConfig}/>
+          <Carousel classes="banner-slider" sliderList={sliderList} config={BannerCarouselConfig}/>
           <HomeSection sliderList={trendingList} config={settings} categoryName={"Trending"}/>
           <HomeSection sliderList={bestSellerList} config={settings} categoryName={"Best Seller"} />
           <HomeSection sliderList={newArrivalList} config={settings} categoryName={"New Arrival"}/>

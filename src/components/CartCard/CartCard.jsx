@@ -3,7 +3,7 @@ import './CartCard.css'
 import { Link } from 'react-router-dom';
 
 function CartCard(props) {
-    const {item, removeProduct} = props;
+    const {item, removeProduct, addProductToWishlist} = props;
     
   return (
     <div className='cart-card'>
@@ -29,7 +29,7 @@ function CartCard(props) {
         </div>
         <div className='cart-item-control'>
             <button className='cart-item-remove-btn' onClick={removeProduct}>remove</button>
-            <button className='cart-item-wishlist-btn'>move to wishlist</button>
+            <button className='cart-item-wishlist-btn' onClick={addProductToWishlist}>move to wishlist</button>
         </div>
     </div>
   )

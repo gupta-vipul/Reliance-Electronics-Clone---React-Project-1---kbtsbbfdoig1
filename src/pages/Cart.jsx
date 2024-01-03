@@ -5,11 +5,15 @@ import CartCard from '../components/CartCard/CartCard';
 import IsAuth from '../components/IsAuth/IsAuth';
 import Loader from '../components/Loader/Loader';
 import { CartContext } from '../Context/CartContext';
+import Toast from '../components/Toast/Toast';
 
 function Cart() {
   const [cartItems, setCartItems] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const {cartCount,setCartCount} = useContext(CartContext);
+  const [message, setMessage] = useState("");
+  const [open, setOpen] = useState(false);
+  const [severity, setSeverity] = useState("info");
   const navigate = useNavigate();
   async function getCartItems() {
     setIsLoading(true);
@@ -33,6 +37,7 @@ function Cart() {
     }
   }
   async function removeProduct(id) {
+    setIsLoading(true);
     try{
       const response = await fetch(REMOVE_ITEM_FROM_CART(id), {
       method: 'DELETE',
@@ -43,14 +48,57 @@ function Cart() {
       });
       const jsonData = await response.json();
       console.log(jsonData);
-      getCartItems();
       setCartItems(jsonData.data);
+      setCartCount(jsonData.data.items.length);
     }
     catch(error) {
       console.log(error);
     } 
+    finally {
+      setIsLoading(false);
+    }
+  }
+  async function addToWishlist(id) {
+    setIsLoading(true);
+    try{
+      const response = await fetch(`https://academics.newtonschool.co/api/v1/ecommerce/wishlist/`, {
+      method: 'PATCH',
+      headers: {
+        'projectID' : 'kbtsbbfdoig1',
+        'Authorization': `Bearer ${localStorage.getItem('token')}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        'productId' : id
+      }),
+      }); 
+      const jsonData = await response.json();
+      if(jsonData.status === 'success') {
+        setOpen(true);
+        setMessage(jsonData.message);
+        setSeverity(jsonData.status);
+      }
+      else {
+        setOpen(true);
+        setMessage(jsonData.message);
+        setSeverity('error');
+      }
+      removeProduct(id);
+    }
+    catch(error) {
+      console.log(error);
+    } 
+    finally{
+      setIsLoading(false);
+    }
   }
   
+  function handleSnackbarClose(e, reason) {
+    if(reason === 'clickaway') {
+        return;
+    }
+    setOpen(false);
+  }
   function checkout() {
     navigate('/checkout');
   }
@@ -84,7 +132,8 @@ function Cart() {
                 Array.isArray(cartItems.items) && 
                 cartItems.items.map((cartListItem)=>{
                   return (
-                    <CartCard item={cartListItem} key={cartListItem._id} removeProduct={()=>removeProduct(cartListItem.product._id)}/>
+                    <CartCard item={cartListItem} key={cartListItem._id} removeProduct={()=>removeProduct(cartListItem.product._id)}
+                    addProductToWishlist={()=>addToWishlist(cartListItem.product._id)}/>
                   )
                 })
               }
@@ -111,6 +160,13 @@ function Cart() {
           </div>
         ))
       }
+      <Toast 
+            open={open}
+            duration={5000}
+            onClose={handleSnackbarClose}
+            severity={severity}
+            message={message}
+        />
     </div>
   )
 }

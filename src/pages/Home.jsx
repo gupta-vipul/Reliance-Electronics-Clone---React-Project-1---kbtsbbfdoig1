@@ -162,7 +162,7 @@ const Home = () => {
     // TODO: Force scroll page to the top[not working]
     
     // window.onbeforeunload = () => {
-    //   window.scrollTo(0,0);
+      window.scrollTo(0,0);
     // }
   },[])
   return (

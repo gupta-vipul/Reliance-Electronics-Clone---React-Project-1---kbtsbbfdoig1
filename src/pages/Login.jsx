@@ -33,7 +33,7 @@ function Login() {
         password : "",
         appType : "ecommerce"
     });
-    const {isLoggedIn, setIsLoggedIn} = useContext(AuthContext);
+    const {isLoggedIn, setIsLoggedIn, userDetails, setUserDetails} = useContext(AuthContext);
     const [open, setOpen] = useState(false);
     const [message, setMessage] = useState("");
     const [severity, setSeverity] = useState("info");
@@ -53,6 +53,7 @@ function Login() {
                 setMessage(jsonData.message);
                 localStorage.setItem('token', jsonData.token);
                 delete jsonData['token'];
+                localStorage.setItem('userInfo', JSON.stringify(jsonData.data));
                 navigate("/");
                 setIsLoggedIn(true);
             }else {
@@ -73,6 +74,7 @@ function Login() {
     }
 
     useEffect(()=>{
+        window.scrollTo(0,0);
         if(localStorage.getItem('token')) {
             navigate('/');
         }

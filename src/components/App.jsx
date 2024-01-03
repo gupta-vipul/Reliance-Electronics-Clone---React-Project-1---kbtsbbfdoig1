@@ -19,6 +19,8 @@ import NotFoundPage from "../pages/NotFoundPage";
 import Checkout from "../pages/Checkout";
 import MyWishlist from "../pages/MyWishlist";
 import MyOrders from "../pages/MyOrders";
+import MyAccount from "../pages/MyAccount";
+import Profile from "../pages/Profile";
 
 function App() {
   
@@ -38,7 +40,8 @@ function App() {
               <Route path="/register" element={<Register />}/>
               <Route path="/cart" element={<Cart />} />
               <Route path="/checkout" element={<Checkout />} />
-              <Route path="/profile">
+              <Route path="/profile" element={<Profile />}>
+                <Route path="myaccount" element={<MyAccount />}/>
                 <Route path="mywishlist" element={<MyWishlist />}/>
                 <Route path="myorders" element={<MyOrders/>}/>
               </Route>

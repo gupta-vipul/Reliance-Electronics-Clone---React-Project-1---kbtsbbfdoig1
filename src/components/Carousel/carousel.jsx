@@ -19,7 +19,7 @@ const Carousel = (props) => {
           sliderList.map((listItem)=>{
             if(listItem.imageUrl){
               return (
-                <Link to={listItem.path} key={listItem.id}><div><img src={listItem.imageUrl} alt={listItem.displayName} /></div></Link>
+                <Link to={listItem.path} key={listItem.id}><div className="carousel-img-container"><img src={listItem.imageUrl} alt={listItem.displayName} /></div></Link>
               )
             }
             else {

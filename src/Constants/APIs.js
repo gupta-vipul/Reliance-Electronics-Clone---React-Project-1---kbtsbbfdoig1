@@ -11,7 +11,7 @@ export const GET_BESTSELLER_LIST = `https://academics.newtonschool.co/api/v1/eco
 
 export const GET_NEW_ARRIVAL = `https://academics.newtonschool.co/api/v1/ecommerce/electronics/products?limit=10&filter={"sellerTag":"new arrival"}`;
 
-export const GET_SEARCH_DATA = (searchTerm) => `https://academics.newtonschool.co/api/v1/ecommerce/electronics/products?search={"name":"${searchTerm}", "description":"${searchTerm}"}`;
+export const GET_SEARCH_DATA = (searchTerm) => `https://academics.newtonschool.co/api/v1/ecommerce/electronics/products?search={"name":"${searchTerm}"}`;
 
 export const GET_SELLERTAG_PRODUCT = (category)=> `https://academics.newtonschool.co/api/v1/ecommerce/electronics/products?filter={"sellerTag":"${category}"}`;
 
@@ -33,6 +33,12 @@ export const GET_CART_ITEMS = "https://academics.newtonschool.co/api/v1/ecommerc
 export const PATCH_ITEM_TO_CART = (id)=> `https://academics.newtonschool.co/api/v1/ecommerce/cart/${id}`;
 
 export const REMOVE_ITEM_FROM_CART = (id)=> `https://academics.newtonschool.co/api/v1/ecommerce/cart/${id}`;
+
+// Wishllist
+
+export const GET_WISHLIST_DATA = `https://academics.newtonschool.co/api/v1/ecommerce/wishlist`;
+
+export const REMOVE_PRODUCT_FROM_WISHLIST = (productId)=>`https://academics.newtonschool.co/api/v1/ecommerce/wishlist/${productId}`;
 
 // Pincode get api
 

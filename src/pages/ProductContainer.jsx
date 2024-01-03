@@ -101,11 +101,12 @@ function ProductContainer() {
     else if(itemsCategories === 'tv' || itemsCategories === 'ac' || itemsCategories === 'refrigerator') {
       getAllProductsCategoryWise(itemsCategories);
     }
+    window.scrollTo(0, 0);
     }, [productCategory, userInput, itemsCategories]);
 
-  // useEffect(()=>{
-  //   getSearchResult(searchInputText);
-  // },[searchInputText])
+  useEffect(()=>{
+    window.scrollTo(0, 0);
+  },[])
   return (
     <>{isLoading ? (<div className="loader"><Loader /></div>) :
       (<>

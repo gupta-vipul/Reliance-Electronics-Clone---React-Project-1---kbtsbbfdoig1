@@ -107,6 +107,7 @@ const Header = () => {
         updatedDetails.pincode = pincode;
         updatedDetails.district = jsonData[0].PostOffice[0].District;
         setFetchedPincodeDetails(updatedDetails);
+        
         setPincodeModal(false);
     }
     else {
@@ -132,25 +133,27 @@ const Header = () => {
   }
 
   function handleClick() {
-    if (loginText === "Logout") {
-      // console.log("Logout");
-      localStorage.removeItem("token");
-      navigate("/");
-      setIsLoggedIn(false);
-    } else {
+    if (loginText === "Login") {
       navigate("/login");
+    } else {
+      // console.log("Logout");
+      // localStorage.removeItem("token");
+      navigate("/profile/myaccount");
+      // setIsLoggedIn(false);
     }
   }
   useEffect(() => {
     getAllCategories();
+    // console.log(userDetails);
   }, []);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
-    setLoginText(token ? "Logout" : "Login");
+    const userDetails = JSON.parse(localStorage.getItem('userInfo'));
     if (token) {
       getCartCount();
     }
+    setLoginText(token ? `Hi ${userDetails.name}` : "Login");
   }, [isLoggedIn]);
 
   return (
@@ -166,7 +169,7 @@ const Header = () => {
         <Link to="/">
           <img className="headerlogo" src="/rd_logo.svg" alt="logo" />
         </Link>
-        <Dropdown categories={categories} />
+        {/* <Dropdown categories={categories} /> */}
         <form className="search-box" onSubmit={handleSubmit}>
           <input
             ref={SearchInputRef}
@@ -219,7 +222,7 @@ const Header = () => {
           })}
         </ul>
       </div>
-      {/* <Navbar /> */}
+      <Navbar />
       {pincodeModal
         ? createPortal(
             <div className="pincode-window">

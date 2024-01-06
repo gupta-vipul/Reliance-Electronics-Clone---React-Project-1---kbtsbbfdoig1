@@ -24,3 +24,7 @@
 .nav-list-items:hover {
     background-color: var(--primary-color);
 }
+
+.display-hidden {
+    display: none;
+}

@@ -1,0 +1,22 @@
+.payment-gateway-section {
+    display: grid;
+    grid-template-columns: 0.2fr 1fr;
+}
+
+.payment-option-list-item {
+    padding: 0.5rem;
+    border-bottom: 1px solid #e2e2e2;
+    border-right: 1px solid #e2e2e2;
+}
+.payment-option-list-item label {
+    width: 100%;
+    padding: 0.5rem;
+    display: flex;
+    gap: 0.5rem;
+    font-size: 0.8rem;
+    font-weight: 550;
+    cursor: pointer;
+}
+.payment-options {
+    padding: 0 1rem;
+}

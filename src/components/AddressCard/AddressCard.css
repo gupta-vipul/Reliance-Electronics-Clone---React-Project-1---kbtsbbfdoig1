@@ -1,0 +1,25 @@
+.address-card-checkout {
+    border: 1px solid #c2c2c2;
+    width: 25%;
+    margin-bottom: 20px;
+    padding: 1rem;
+    background-color: rgb(231, 231, 231);
+}
+.user-name-address-card {
+    font-weight: 500;
+    margin-bottom: 8px;
+}
+.address-card-flatno {
+    font-size: 0.8rem;
+}
+.address-card-city {
+    font-size: 0.8rem;
+}
+.address-card-mobile {
+    font-size: 0.8rem;
+    margin-top: 8px;
+}
+.address-card-mobile span {
+    font-weight: 500;
+    color: #1d1d1d;
+}

@@ -1,0 +1,41 @@
+.customer-reviews {
+    padding: 0 2rem;
+    width: 65%;
+}
+
+.review-card {
+    padding: 1rem 0 0.5rem;
+}
+
+.review-user-name {
+    color: #858585;
+    font-weight: 400;
+}
+
+.customer-review-tag {
+    text-transform: capitalize;
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: #585757;
+    padding-right: 1rem;
+}
+
+.review-product-name {
+    color: var(--secondary-color);
+    font-weight: 500;
+}
+.review-comment {
+    font-size: 0.8rem;
+    color: #3b3b3b;
+}
+.helpful-btn {
+    margin-top: 1rem;
+    padding: .6rem 1rem;
+    background-color: #fff;
+    border: 1px solid var(--secondary-color);
+    color: var(--secondary-color);
+    font-weight: 550;
+    font-size: 0.9rem;
+    border-radius: 4px;
+    text-transform: capitalize;
+}

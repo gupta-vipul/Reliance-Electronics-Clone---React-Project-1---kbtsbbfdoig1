@@ -1,10 +1,12 @@
 import { Button, TextField } from '@mui/material';
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
 import { USER_SIGNUP_API } from '../Constants/APIs';
+import { AuthContext } from '../Context/AuthContext';
 
 function Register() {
   const navigate = useNavigate();
+  const {setIsLoggedIn} = useContext(AuthContext);
   const [registrationData, setregistrationData] = useState({
     "firstname" : "",
     "lastname" : "",
@@ -82,7 +84,9 @@ function Register() {
       if(jsonData.status === "success"){
         localStorage.setItem("token", jsonData.token);
         delete jsonData['token'];
-        navigate("/")
+        localStorage.setItem('userInfo', JSON.stringify(jsonData.data.user));
+        setIsLoggedIn(true);
+        navigate("/");
       }
       console.log(jsonData);
     }

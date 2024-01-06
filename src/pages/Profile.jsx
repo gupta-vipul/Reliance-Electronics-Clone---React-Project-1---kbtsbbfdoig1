@@ -35,6 +35,7 @@ function Profile() {
         setIsLoggedIn(false);
         localStorage.removeItem('userInfo');
         localStorage.removeItem('token');
+        localStorage.removeItem('addresses');
         navigate("/");
     }
     useEffect(()=>{

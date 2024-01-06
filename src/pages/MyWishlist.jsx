@@ -62,6 +62,7 @@ function MyWishlist() {
         </div>
       ) : (
         <>
+          {/* TODO: Work on the clear all wishlist product feature  */}
           {wishlistedProduct &&
             Array.isArray(wishlistedProduct) &&
             wishlistedProduct.map((product) => {

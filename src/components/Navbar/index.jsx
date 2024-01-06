@@ -2,11 +2,12 @@ import { useEffect, useState } from 'react';
 import './navbar.css';
 import { GET_CATEGORIES } from '../../Constants/APIs';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 const Navbar =()=>{
     const [navlist, setNavlist] = useState([]);
-
+    const [hidden, setHidden] = useState(false);
+    const location = useLocation();
     async function getAllCategories() {
         const response = await fetch(GET_CATEGORIES, {
             headers: {
@@ -16,13 +17,27 @@ const Navbar =()=>{
         const data = await response.json();
         setNavlist(data.data);
     }
-
+    
+    function hideNavbar() {
+        setHidden(true);
+    }
+    function showNavbar() {
+        setHidden(false);
+    }
     useEffect(()=>{
         getAllCategories();
     },[]);
+    useEffect(()=>{
+        if(location.pathname === '/checkout') {
+            hideNavbar();
+        }
+        else {
+            showNavbar();
+        }
+    },[location])
     return (
         <>
-            <ul className='flex navbar'>
+            <ul className={`flex navbar ${hidden ? "display-hidden" : null}`} >
             {
                 Array.isArray(navlist) &&
                 navlist.map((listItem, index)=>{

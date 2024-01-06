@@ -2,20 +2,23 @@ import React, { useContext, useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom';
 import { GET_PRODUCT_DETAILS, PATCH_ITEM_TO_CART, PRODUCT_REVIEW } from '../Constants/APIs';
 import Breadcrumb from '../components/Breadcrumb/breadcrumb';
-import Carousel from '../components/Carousel/carousel';
 import { INRConversion } from '../utils/NumberConversion';
 import { Button, Rating } from '@mui/material';
 import Loader from '../components/Loader/Loader';
 import { CartContext } from '../Context/CartContext';
+import CustomerReview from '../components/CustomerReview/CustomerReview';
+import ImageSlider from '../components/ImageSlider/ImageSlider';
 
 function ProductDetail() {
   const { product_id } = useParams();
   const navigate = useNavigate();
   const {setCartCount} = useContext(CartContext);
   const [productDetails, setProductDetails] = useState({});
+  const [displayImage, setdisplayImage] = useState("");
   const [productReviews, setProductReviews] = useState([]);
   const [btnLoader, setBtnLoader] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  // console.log(productDetails);
   async function getProductDetails(id) {
     setIsLoading(true);
     try{
@@ -26,6 +29,7 @@ function ProductDetail() {
       });
       const jsonData = await response.json();
       setProductDetails(jsonData.data);
+      setdisplayImage(jsonData.data.displayImage);
       // console.log(jsonData);
     }
     catch(error) {
@@ -83,9 +87,12 @@ function ProductDetail() {
       navigate('/login')
     }
   }
-  function handleBuyNowBtnClick() {
-    console.log("button buy now clicked");
-    navigate('/checkout');
+  function handleBuyNowBtnClick(id) {
+    addtoCart(id)
+  }
+
+  function handleImageChange(url) {
+    setdisplayImage(url);
   }
   useEffect(()=>{
     getProductDetails(product_id);
@@ -98,13 +105,28 @@ function ProductDetail() {
       <Breadcrumb />
       <div className='product-details'>
         <div className='product-images-display'>
-          <img src={productDetails.displayImage} alt={productDetails.name} />
-          <Carousel />
+          <div className='displayImage-container'>
+            <img src={displayImage && displayImage} alt={productDetails.name} onError={(e)=>{
+              e.currentTarget.src = "/placeholder.png"
+            }}/>
+          </div>
+          {/* TODO: Need to work on the Image Slider */}
+          <div className='product-images-slider'>
+            <ImageSlider imageList={productDetails.images} handleClick={handleImageChange}/>
+          </div>
         </div>
         <div className='product-details-display'>
-          <div className='product-details-title-rating'>
+          <div className='product-details-title-rating flex'>
             <span className='product-details-title'>{productDetails.name}</span>
-            
+            <div className='flex' style={{alignItems: 'center', color: 'var(--secondary-color)', fontWeight: '550', fontSize: '0.8rem'}}>
+              <Rating
+                sx={{fontSize: '1.1rem'}}
+                name="review-rating"
+                value={productDetails.ratings}
+                readOnly
+              />
+              <span>({`${productReviews.length} Reviews`})</span>
+            </div>
             </div>
           <div className="product-features-price-section">
             <div className='product-features-offer-section'>
@@ -129,38 +151,26 @@ function ProductDetail() {
               </div>
               <div className='product-details-btn'>
                 <Button size='large' sx={{backgroundColor: "var(--primary-color)", color: '#fff'}} onClick={()=>addtoCart(product_id)} fullWidth>add to cart</Button>
-                <Button size="large" sx={{backgroundColor: "orangered", color: '#fff'}} onClick={handleBuyNowBtnClick}fullWidth>buy now</Button>
+                <Button size="large" sx={{backgroundColor: "orangered", color: '#fff'}} onClick={()=>handleBuyNowBtnClick(product_id)}fullWidth>buy now</Button>
               </div>
             </div>
           </div>
         </div>
       </div>
       <div className='product-description-review-section'>
-        <div className='product-more-details-panel container'>
+        <div className='product-more-details-panel'>
           <ul className='product-details-panel-list'>
             <li><a href='#description'>Description</a></li>
             <li><a href="#review">Customer Reviews</a></li>
           </ul>
         </div>
-        <div id="description" className='product-description container'>
+        <div id="description" className='product-description'>
           <div dangerouslySetInnerHTML={{
             __html: productDetails.description,
             }}>
           </div>
         </div>
-        <div id="review" className='customer-reviews container'>
-          <span>customer reviews</span>
-          <span>({productDetails.name})</span>
-            {
-              productReviews && 
-              Array.isArray(productReviews) &&
-              productReviews.map((review)=>{
-                return (
-                  <div key={review._id}>{review.text}</div>
-                )
-              })
-            }
-        </div>
+        <CustomerReview productDetails={productDetails} productReviews={productReviews}/>
       </div>
       </div>
       )}

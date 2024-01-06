@@ -25,6 +25,7 @@ const Header = () => {
   const { isLoggedIn, setIsLoggedIn } = useContext(AuthContext);
   const { setSearchInputText } = useContext(SearchContext);
   const { cartCount, setCartCount } = useContext(CartContext);
+  console.log(cartCount);
   const navigate = useNavigate();
   const autoHideHeaderList = [
     {
@@ -190,9 +191,11 @@ const Header = () => {
                     <ShoppingCartIcon className="headericon" />
                     <span>
                       {listItem.displayName}
-                      {cartCount < 1 ? null : (
-                        <div className="cart-count-header">{cartCount}</div>
-                      )}
+                      {
+                        cartCount ? 
+                        (<div className={`cart-count-header ${cartCount }`}>{cartCount}</div>) :
+                        (null)
+                      }
                     </span>
                   </Link>
                 </li>

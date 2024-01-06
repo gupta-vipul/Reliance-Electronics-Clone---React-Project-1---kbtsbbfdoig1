@@ -3,6 +3,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
 import { USER_SIGNUP_API } from '../Constants/APIs';
 import { AuthContext } from '../Context/AuthContext';
+import Toast from '../components/Toast/Toast';
 
 function Register() {
   const navigate = useNavigate();
@@ -13,7 +14,10 @@ function Register() {
     "email" : "",
     "password" : "",
     "appType" : "ecommerce"
-  })
+  });
+  const [open, setOpen] = useState(false);
+  const [message, setMessage] = useState("");
+  const [severity, setSeverity] = useState("info");
   const registerForm = [
     {
       id: "firstname",
@@ -71,7 +75,13 @@ function Register() {
       updatedRegistrationData[key] = value;
     })
     setregistrationData(updatedRegistrationData);
-    registerNewUser(registrationData);
+    registerNewUser(updatedRegistrationData);
+  }
+  function handleSnackbarClose(e, reason) {
+    if(reason === 'clickaway') {
+        return;
+    }
+    setOpen(false);
   }
   async function registerNewUser(data) {
     try{
@@ -88,7 +98,11 @@ function Register() {
         setIsLoggedIn(true);
         navigate("/");
       }
-      console.log(jsonData);
+      else if(jsonData.status === "fail"){
+        setOpen(true);
+        setMessage(jsonData.message);
+        setSeverity('error');
+      }
     }
     catch(error) {
       console.log(error);
@@ -103,6 +117,13 @@ function Register() {
 
   return (
     <div className='register'>
+      <Toast 
+          open={open}
+          duration={5000}
+          onClose={handleSnackbarClose}
+          severity={severity}
+          message={message}
+        />
         <div className='register-form-container'>
           <h3>Register New Account</h3>
           <form className='register-form' onSubmit={handleSubmit}>

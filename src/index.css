@@ -41,7 +41,7 @@ body {
   }
   .mobile-menu {
     display: block;
-    padding-right: 0.5rem;
+    padding: 0 0.5rem 0 0.3125rem;
   }
   .headerlogo {
     max-height: 2rem;
@@ -57,6 +57,12 @@ body {
   }
   .navbar {
     display: none;
+  }
+
+  /* Home Section */
+  .section-header {
+    justify-content: space-between;
+    padding: 1rem 0;
   }
 
   /* Footer */

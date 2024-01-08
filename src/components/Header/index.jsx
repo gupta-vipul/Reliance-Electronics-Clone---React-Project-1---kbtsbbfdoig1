@@ -74,9 +74,7 @@ const Header = () => {
     isError: false,
   });
   const [userDeliveryLocation, setUserDeliveryLocation] = useState("");
-  const [moblieSideBar, setMobileSideBar] = useState(false);
-  
-
+  const [isSidebarVisible, setIsSidebarVisible] = useState(false);
   async function getAllCategories() {
     const response = await fetch(GET_CATEGORIES, {
       headers: {
@@ -145,6 +143,9 @@ const Header = () => {
       // setIsLoggedIn(false);
     }
   }
+  function handleCloseClick() {
+    setIsSidebarVisible(false);
+  }
   useEffect(() => {
     getAllCategories();
     // console.log(userDetails);
@@ -169,8 +170,9 @@ const Header = () => {
         </ul>
       </div>
       <div className="header-main flex">
+        <SidebarDrawer categories={categories} isSidebarVisible={isSidebarVisible} handleCloseClick={handleCloseClick} isLoggedIn={isLoggedIn}/>
         <div className="flex mobile-view-header-menu-logo">
-          <div className="mobile-menu"><Menu sx={{color: "white",}} onClick={()=>setMobileSideBar(true)}/></div>
+          <div className="mobile-menu"><Menu sx={{color: "white"}} onClick={()=>setIsSidebarVisible(true)}/></div>
           <Link to="/">
             <img className="headerlogo" src="/rd_logo.svg" alt="logo" />
           </Link>
@@ -271,11 +273,6 @@ const Header = () => {
             document.body
           )
         : null}
-        {
-          moblieSideBar ? 
-          (createPortal(<SidebarDrawer />, document.body)) : 
-          (null)
-        }
     </>
   );
 };

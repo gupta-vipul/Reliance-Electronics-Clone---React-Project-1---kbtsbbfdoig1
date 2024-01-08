@@ -25,6 +25,9 @@
     align-items: center;
     padding: 8px 16px 8px 48px;
     background-color: var(--primary-color);
+    position: sticky;
+    top: 0;
+    z-index: 50;
 }
 
 .headerlogo {
@@ -33,6 +36,9 @@
     cursor: pointer;
 }
 
+.mobile-menu {
+    display: none;
+}
 .search-box {
     width: 38%;
     position: relative;
@@ -70,11 +76,6 @@
     cursor: pointer;
 } */
 
-.header-main {
-    position: sticky;
-    top: 0;
-    z-index: 50;
-}
 
 .header-main ul {
     list-style: none;
@@ -187,4 +188,8 @@ PIN-CODE COMPONENT CSS
     background-color: transparent;
     max-height: 2.5rem;
     cursor: pointer;
+}
+
+.mobile-view-header-menu-logo {
+    align-items: center;
 }

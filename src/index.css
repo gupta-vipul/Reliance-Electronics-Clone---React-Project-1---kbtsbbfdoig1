@@ -24,3 +24,43 @@ body {
 .text-capitalise {
   text-transform: capitalize;
 }
+
+@media only screen and (max-width: 600px) {
+  /* autohide top-bar */
+  .autohideheader {
+    display: none;
+  }
+
+  /* NavBar */
+  .header-main {
+    flex-direction: column;
+    padding: 0.5rem;
+    align-items: flex-start;
+    position: sticky;
+    top: 0;
+  }
+  .mobile-menu {
+    display: block;
+    padding-right: 0.5rem;
+  }
+  .headerlogo {
+    max-height: 2rem;
+  }
+  .header-main ul {
+    display: none;
+  }
+  .header-main .search-box {
+    width: 100%;
+  }
+  .search-input {
+    height: 2rem;
+  }
+  .navbar {
+    display: none;
+  }
+
+  /* Footer */
+  .footer {
+    display: none;
+  }
+}

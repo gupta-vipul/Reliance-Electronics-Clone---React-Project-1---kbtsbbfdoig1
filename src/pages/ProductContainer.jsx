@@ -110,7 +110,7 @@ function ProductContainer() {
     setOpen(false);
   }
   function handlecheckboxClick(e) {
-    
+    console.log(e.target.value)
   }
   // Sorting function 
   function SortingLowToHigh() {

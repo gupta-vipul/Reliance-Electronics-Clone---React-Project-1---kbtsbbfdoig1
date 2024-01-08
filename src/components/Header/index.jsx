@@ -19,13 +19,14 @@ import Dropdown from "../Menu/Dropdown";
 import { createPortal } from "react-dom";
 import CloseIcon from "@mui/icons-material/Close";
 import { TextField } from "@mui/material";
+import { Menu } from "@mui/icons-material";
+import SidebarDrawer from "../SidebarDrawer/SidebarDrawer";
 
 const Header = () => {
   const SearchInputRef = useRef();
   const { isLoggedIn, setIsLoggedIn } = useContext(AuthContext);
   const { setSearchInputText } = useContext(SearchContext);
   const { cartCount, setCartCount } = useContext(CartContext);
-  console.log(cartCount);
   const navigate = useNavigate();
   const autoHideHeaderList = [
     {
@@ -73,6 +74,7 @@ const Header = () => {
     isError: false,
   });
   const [userDeliveryLocation, setUserDeliveryLocation] = useState("");
+  const [moblieSideBar, setMobileSideBar] = useState(false);
   
 
   async function getAllCategories() {
@@ -167,9 +169,12 @@ const Header = () => {
         </ul>
       </div>
       <div className="header-main flex">
-        <Link to="/">
-          <img className="headerlogo" src="/rd_logo.svg" alt="logo" />
-        </Link>
+        <div className="flex mobile-view-header-menu-logo">
+          <div className="mobile-menu"><Menu sx={{color: "white",}} onClick={()=>setMobileSideBar(true)}/></div>
+          <Link to="/">
+            <img className="headerlogo" src="/rd_logo.svg" alt="logo" />
+          </Link>
+        </div>
         {/* <Dropdown categories={categories} /> */}
         <form className="search-box" onSubmit={handleSubmit}>
           <input
@@ -266,6 +271,11 @@ const Header = () => {
             document.body
           )
         : null}
+        {
+          moblieSideBar ? 
+          (createPortal(<SidebarDrawer />, document.body)) : 
+          (null)
+        }
     </>
   );
 };

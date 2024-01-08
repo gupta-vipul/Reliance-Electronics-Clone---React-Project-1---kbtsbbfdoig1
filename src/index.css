@@ -65,6 +65,20 @@ body {
     padding: 1rem 0;
   }
 
+  /* Login page */
+  .login-container img{
+    display: none;
+  }
+  .login-form-container {
+    width: 100%;
+  }
+  /* Register form */ 
+  .register {
+    padding: 1.5rem;
+  }
+  .register-form-container {
+    width: 100%;
+  }
   /* Footer */
   .footer {
     display: none;

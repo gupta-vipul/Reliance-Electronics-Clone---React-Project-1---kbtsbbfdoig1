@@ -21,12 +21,14 @@ import CloseIcon from "@mui/icons-material/Close";
 import { TextField } from "@mui/material";
 import { Menu } from "@mui/icons-material";
 import SidebarDrawer from "../SidebarDrawer/SidebarDrawer";
+import Toast from "../Toast/Toast";
 
 const Header = () => {
   const SearchInputRef = useRef();
   const { isLoggedIn, setIsLoggedIn } = useContext(AuthContext);
   const { setSearchInputText } = useContext(SearchContext);
   const { cartCount, setCartCount } = useContext(CartContext);
+
   const navigate = useNavigate();
   const autoHideHeaderList = [
     {
@@ -75,6 +77,9 @@ const Header = () => {
   });
   const [userDeliveryLocation, setUserDeliveryLocation] = useState("");
   const [isSidebarVisible, setIsSidebarVisible] = useState(false);
+  const [open, setOpen] = useState(false);
+  const [message, setMessage] = useState("");
+  const [severity, setSeverity] = useState("info");
   async function getAllCategories() {
     const response = await fetch(GET_CATEGORIES, {
       headers: {
@@ -97,34 +102,42 @@ const Header = () => {
   // Checking Indian Pincode as per user input
   function handleChange(e) {
     setUserDeliveryLocation(e.target.value);
-  } 
+  }
   async function validatePincode(pincode) {
     const response = await fetch(GET_PINCODE_DETAILS(pincode));
-    const jsonData = await response.json()
-    if(jsonData[0].Status === "Success") {
-        const updatedDetails = {...fetchedPincodeDetails};
-        updatedDetails.isError = false;
-        updatedDetails.helperText = "";
-        updatedDetails.pincode = pincode;
-        updatedDetails.district = jsonData[0].PostOffice[0].District;
-        setFetchedPincodeDetails(updatedDetails);
-        
-        setPincodeModal(false);
-    }
-    else {
-        const updatedDetails = {...fetchedPincodeDetails};
-        updatedDetails.isError = true;
-        updatedDetails.pincode = "";
-        updatedDetails.district = "";
-        updatedDetails.helperText = "Enter Valid 6-digit Pin Code!";
-        setFetchedPincodeDetails(updatedDetails);
+    const jsonData = await response.json();
+    if (jsonData[0].Status === "Success") {
+      const updatedDetails = { ...fetchedPincodeDetails };
+      updatedDetails.isError = false;
+      updatedDetails.helperText = "";
+      updatedDetails.pincode = pincode;
+      updatedDetails.district = jsonData[0].PostOffice[0].District;
+      setFetchedPincodeDetails(updatedDetails);
+
+      setPincodeModal(false);
+    } else {
+      const updatedDetails = { ...fetchedPincodeDetails };
+      updatedDetails.isError = true;
+      updatedDetails.pincode = "";
+      updatedDetails.district = "";
+      updatedDetails.helperText = "Enter Valid 6-digit Pin Code!";
+      setFetchedPincodeDetails(updatedDetails);
     }
   }
+  // header pincode checking function
   function checkPincode(e) {
     e.preventDefault();
     validatePincode(userDeliveryLocation);
   }
-    
+  // handle Toastbar closing using button
+  function handleSnackbarClose(e, reason) {
+    if (reason === "clickaway") {
+      return;
+    }
+    setOpen(false);
+  }
+
+  // handle Search input
   function handleSubmit(e) {
     e.preventDefault();
     if (SearchInputRef.current.value !== "") {
@@ -133,6 +146,7 @@ const Header = () => {
     }
   }
 
+  // handling login button on header and user profile
   function handleClick() {
     if (loginText === "Login") {
       navigate("/login");
@@ -143,8 +157,18 @@ const Header = () => {
       // setIsLoggedIn(false);
     }
   }
+
+  // handle mobile side bar close
   function handleCloseClick() {
     setIsSidebarVisible(false);
+  }
+
+  // handling dead clicks
+  function handleDeadClick() {
+    setOpen(true);
+    setMessage(
+      "Please bear with us, we are still working on this page. It will be available soon!!"
+    );
   }
   useEffect(() => {
     getAllCategories();
@@ -153,7 +177,7 @@ const Header = () => {
 
   useEffect(() => {
     const token = localStorage.getItem("token");
-    const userDetails = JSON.parse(localStorage.getItem('userInfo'));
+    const userDetails = JSON.parse(localStorage.getItem("userInfo"));
     if (token) {
       getCartCount();
     }
@@ -165,14 +189,28 @@ const Header = () => {
       <div className="autohideheader">
         <ul className="flex">
           {autoHideHeaderList.map(({ id, displayName }) => {
-            return <li key={id}>{displayName}</li>;
+            return (
+              <li key={id} onClick={handleDeadClick}>
+                {displayName}
+              </li>
+            );
           })}
         </ul>
       </div>
       <div className="header-main flex">
-        <SidebarDrawer categories={categories} isSidebarVisible={isSidebarVisible} handleCloseClick={handleCloseClick} isLoggedIn={isLoggedIn}/>
+        <SidebarDrawer
+          categories={categories}
+          isSidebarVisible={isSidebarVisible}
+          handleCloseClick={handleCloseClick}
+          isLoggedIn={isLoggedIn}
+        />
         <div className="flex mobile-view-header-menu-logo">
-          <div className="mobile-menu"><Menu sx={{color: "white"}} onClick={()=>setIsSidebarVisible(true)}/></div>
+          <div className="mobile-menu">
+            <Menu
+              sx={{ color: "white" }}
+              onClick={() => setIsSidebarVisible(true)}
+            />
+          </div>
           <Link to="/">
             <img className="headerlogo" src="/rd_logo.svg" alt="logo" />
           </Link>
@@ -198,11 +236,11 @@ const Header = () => {
                     <ShoppingCartIcon className="headericon" />
                     <span>
                       {listItem.displayName}
-                      {
-                        cartCount ? 
-                        (<div className={`cart-count-header ${cartCount }`}>{cartCount}</div>) :
-                        (null)
-                      }
+                      {cartCount ? (
+                        <div className={`cart-count-header ${cartCount}`}>
+                          {cartCount}
+                        </div>
+                      ) : null}
                     </span>
                   </Link>
                 </li>
@@ -216,16 +254,19 @@ const Header = () => {
               );
             } else {
               return (
-                <li key={listItem.id} onClick={()=>setPincodeModal(true)}>
-                  {
-                    listItem.displayName === "Select your Pin Code" ? 
-                        (<>{
-                            fetchedPincodeDetails.pincode && fetchedPincodeDetails.district ? 
-                            (`Deliver to ${fetchedPincodeDetails.district.toUpperCase()} ${fetchedPincodeDetails.pincode}`) :
-                            ("Select your Pin Code")
-                        }</>) : 
-                        ("Select your Pin Code")
-                  }
+                <li key={listItem.id} onClick={() => setPincodeModal(true)}>
+                  {listItem.displayName === "Select your Pin Code" ? (
+                    <>
+                      {fetchedPincodeDetails.pincode &&
+                      fetchedPincodeDetails.district
+                        ? `Deliver to ${fetchedPincodeDetails.district.toUpperCase()} ${
+                            fetchedPincodeDetails.pincode
+                          }`
+                        : "Select your Pin Code"}
+                    </>
+                  ) : (
+                    "Select your Pin Code"
+                  )}
                 </li>
               );
             }
@@ -243,7 +284,7 @@ const Header = () => {
                   </div>
                   <button
                     className="pincode-box-close-btn"
-                    onClick={()=>setPincodeModal(false)}
+                    onClick={() => setPincodeModal(false)}
                   >
                     <CloseIcon sx={{ color: "white" }} />
                   </button>
@@ -251,7 +292,7 @@ const Header = () => {
                 <div className="pincode-form">
                   <form>
                     <TextField
-                        error={fetchedPincodeDetails.isError}
+                      error={fetchedPincodeDetails.isError}
                       id="outlined-pincode-input"
                       label="Enter Delivery Pincode"
                       type="text"
@@ -273,6 +314,13 @@ const Header = () => {
             document.body
           )
         : null}
+      <Toast
+        open={open}
+        duration={5000}
+        onClose={handleSnackbarClose}
+        severity={severity}
+        message={message}
+      />
     </>
   );
 };

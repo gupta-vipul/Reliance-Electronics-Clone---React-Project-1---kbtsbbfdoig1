@@ -1,7 +1,12 @@
 import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom';
 
 function MyOrders() {
+  const navigate = useNavigate();
   const [purchasedProducts, setPurchasedProducts] = useState([]);
+  function handleEmptyOrderPageBtnClick() {
+    navigate("/");
+  }
   return (
     <div className='order-history-page'>
         {
@@ -11,7 +16,7 @@ function MyOrders() {
               <img src="/no-item-found.png" alt="no orders found" />
               <p>No Orders Found</p>
             </div>
-            <button className='empty-order-page-btn'>continue shopping</button>
+            <button className='empty-order-page-btn' onClick={handleEmptyOrderPageBtnClick}>continue shopping</button>
           </div>) :
           (<div>some products</div>)
         }

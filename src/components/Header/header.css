@@ -1,71 +1,72 @@
 .autohideheader {
-    background-color: var(--primary-color);
+  background-color: var(--primary-color);
 }
 
 .autohideheader ul {
-    justify-content: flex-end;
-    list-style: none;
-    padding: 4px 16px;
+  justify-content: flex-end;
+  list-style: none;
+  padding: 4px 16px;
 }
 
 .autohideheader li {
-    color: #fff;
-    font-size: .8125rem;
-    font-weight: 600;
-    padding: 0 8px;
-    border-right: 1px solid #fff;
+  color: #fff;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  padding: 0 8px;
+  border-right: 1px solid #fff;
+  cursor: pointer;
 }
 
 .autohideheader li:last-child {
-    border: none;
+  border: none;
 }
 
 .header-main {
-    justify-content: space-between;
-    align-items: center;
-    padding: 8px 16px 8px 48px;
-    background-color: var(--primary-color);
-    position: sticky;
-    top: 0;
-    z-index: 50;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 16px 8px 48px;
+  background-color: var(--primary-color);
+  position: sticky;
+  top: 0;
+  z-index: 50;
 }
 
 .headerlogo {
-    max-width: 9.375rem;
-    max-height: 3.125rem;
-    cursor: pointer;
+  max-width: 9.375rem;
+  max-height: 3.125rem;
+  cursor: pointer;
 }
 
 .mobile-menu {
-    display: none;
+  display: none;
 }
 .search-box {
-    width: 38%;
-    position: relative;
-    /* outline: 1px solid black; */
+  width: 38%;
+  position: relative;
+  /* outline: 1px solid black; */
 }
 
 .search-input {
-    width: 100%;
-    height: 2.25rem;
-    padding: 0 16px;
-    border: none;
-    border-radius: 2em;
-    font-size: .875rem;
-    box-sizing: border-box;
-    box-shadow: 0px 1px 2px #fff;
+  width: 100%;
+  height: 2.25rem;
+  padding: 0 16px;
+  border: none;
+  border-radius: 2em;
+  font-size: 0.875rem;
+  box-sizing: border-box;
+  box-shadow: 0px 1px 2px #fff;
 }
 .searchbtn {
-    position: absolute;
-    right: 16px;
-    top: 6px;
-    border: none;
-    background-color: transparent;
-    opacity: 50%;
-    cursor: pointer;
+  position: absolute;
+  right: 16px;
+  top: 6px;
+  border: none;
+  background-color: transparent;
+  opacity: 50%;
+  cursor: pointer;
 }
 .searchbtn:hover {
-    opacity: 100%;
+  opacity: 100%;
 }
 /* .searchIcon {
     outline: 1px solid black;
@@ -76,57 +77,56 @@
     cursor: pointer;
 } */
 
-
 .header-main ul {
-    list-style: none;
-    align-items: center;
-    font-size: .8125rem;
-    font-weight: 600;
-    color: #fff;
+  list-style: none;
+  align-items: center;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: #fff;
 }
 
 .header-main ul li {
-    padding: 0 8px;
-    border-right: 1px solid #fff;
-    cursor: pointer;
+  padding: 0 8px;
+  border-right: 1px solid #fff;
+  cursor: pointer;
 }
 
 .header-main ul li a {
-    text-decoration: none;
-    color: #fff;
-    display: flex;
-    align-items: center;
+  text-decoration: none;
+  color: #fff;
+  display: flex;
+  align-items: center;
 }
 
 .header-main li:last-child {
-    border: none;
+  border: none;
 }
 
 .headericon {
-    font-size: 1.125rem !important;
-    padding-right: 5px;
+  font-size: 1.125rem !important;
+  padding-right: 5px;
 }
 
 .cart-icon-header {
-    position: relative;
+  position: relative;
 }
 
 .cart-count-header {
-    position: absolute;
-    top: -16px;
-    left: 11px;
-    background-color: #252424;
-    padding: 2px 8px;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 0.8rem;
-    font-weight: 700;
+  position: absolute;
+  top: -16px;
+  left: 11px;
+  background-color: #252424;
+  padding: 2px 8px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.8rem;
+  font-weight: 700;
 }
 
 .p-0 {
-    padding: 0;
+  padding: 0;
 }
 
 /* 
@@ -136,60 +136,60 @@ PIN-CODE COMPONENT CSS
 */
 
 .pincode-window {
-    position: absolute;
-    top:0;
-    z-index: 100;
-    background-color: rgba(0,0,0,0.5);
-    height: 100vh;
-    width: 100%;
-    overflow-y: hidden;
-    backdrop-filter: blur(1px);
+  position: absolute;
+  top: 0;
+  z-index: 100;
+  background-color: rgba(0, 0, 0, 0.5);
+  height: 100vh;
+  width: 100%;
+  overflow-y: hidden;
+  backdrop-filter: blur(1px);
 }
 .pincode-box {
-    background-color: #fff;
-    position: absolute;
-    top: 5.3125rem;
-    right: 1.5625rem;
-    width: 35%;
+  background-color: #fff;
+  position: absolute;
+  top: 5.3125rem;
+  right: 1.5625rem;
+  width: 35%;
 }
 .pincode-box-header {
-    background-color: #3399cc;
-    display: flex;
-    justify-content: space-between;
-    padding: 1rem;
-    align-items: center;
+  background-color: #3399cc;
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem;
+  align-items: center;
 }
 .pincode-head-text {
-    font-weight: 700;
-    color: #fff;
+  font-weight: 700;
+  color: #fff;
 }
 .pincode-box-close-btn {
-    border: none;
-    background-color: transparent;
-    cursor: pointer;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
 }
 .pincode-form {
-    padding: 1.5rem 1.5rem 2rem;
+  padding: 1.5rem 1.5rem 2rem;
 }
 .pincode-form form {
-    display: flex;
+  display: flex;
 }
 .pincode-form form label {
-    font-size: 0.9rem;
+  font-size: 0.9rem;
 }
 .pincode-check-btn {
-    padding: 0 20px;
-    text-transform: uppercase;
-    font-size: 0.8rem;
-    color: #3399cc;
-    font-weight: 600;
-    border: 1px solid #3399cc;
-    border-radius: 3px;
-    background-color: transparent;
-    max-height: 2.5rem;
-    cursor: pointer;
+  padding: 0 20px;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  color: #3399cc;
+  font-weight: 600;
+  border: 1px solid #3399cc;
+  border-radius: 3px;
+  background-color: transparent;
+  max-height: 2.5rem;
+  cursor: pointer;
 }
 
 .mobile-view-header-menu-logo {
-    align-items: center;
+  align-items: center;
 }

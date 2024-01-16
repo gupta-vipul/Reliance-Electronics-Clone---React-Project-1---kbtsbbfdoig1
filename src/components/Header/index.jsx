@@ -113,7 +113,7 @@ const Header = () => {
       updatedDetails.pincode = pincode;
       updatedDetails.district = jsonData[0].PostOffice[0].District;
       setFetchedPincodeDetails(updatedDetails);
-
+      localStorage.setItem("pincode", JSON.stringify(updatedDetails));
       setPincodeModal(false);
     } else {
       const updatedDetails = { ...fetchedPincodeDetails };
@@ -122,6 +122,13 @@ const Header = () => {
       updatedDetails.district = "";
       updatedDetails.helperText = "Enter Valid 6-digit Pin Code!";
       setFetchedPincodeDetails(updatedDetails);
+    }
+  }
+  // Fetching already saved pincode
+  function getLocationfromLS() {
+    const locationLs = JSON.parse(localStorage.getItem("pincode"));
+    if (locationLs) {
+      setFetchedPincodeDetails(locationLs);
     }
   }
   // header pincode checking function
@@ -173,6 +180,9 @@ const Header = () => {
   useEffect(() => {
     getAllCategories();
     // console.log(userDetails);
+    if (localStorage.getItem("pincode")) {
+      getLocationfromLS();
+    }
   }, []);
 
   useEffect(() => {

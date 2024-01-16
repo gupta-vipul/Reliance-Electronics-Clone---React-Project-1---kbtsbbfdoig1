@@ -79,6 +79,11 @@ ProductContainer Component
   display: flex;
   gap: 15px;
 }
+.panel-caption {
+  text-transform: uppercase;
+  font-weight: 650;
+  font-size: 1rem;
+}
 .productContainer {
   display: flex;
   flex-wrap: wrap;
@@ -164,6 +169,8 @@ ProductContainer Component
   display: flex;
   align-items: center;
   gap: 0.5rem;
+}
+.afs-display-none {
   display: none;
 }
 .applied-filter-tag {

@@ -57,8 +57,15 @@ function MyWishlist() {
     <div className="wishlist-page flex">
       {wishlistedProduct && wishlistedProduct.length == 0 ? (
         <div className="empty-wishlist-page flex">
-          <div className="empty-wishlist-text">Your Wishlist Currently has no Products</div>
-          <button className='empty-wishlist-btn' onClick={handleEmptyPageButton}>continue shopping</button>
+          <div className="empty-wishlist-text">
+            Your Wishlist Currently has no Products
+          </div>
+          <button
+            className="empty-wishlist-btn"
+            onClick={handleEmptyPageButton}
+          >
+            continue shopping
+          </button>
         </div>
       ) : (
         <>

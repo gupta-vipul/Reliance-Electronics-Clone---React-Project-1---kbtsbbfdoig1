@@ -12,6 +12,7 @@ import Loader from "../components/Loader/Loader";
 import { CartContext } from "../Context/CartContext";
 import CustomerReview from "../components/CustomerReview/CustomerReview";
 import ImageSlider from "../components/ImageSlider/ImageSlider";
+import Toast from "../components/Toast/Toast";
 
 function ProductDetail() {
   const { product_id } = useParams();
@@ -22,6 +23,9 @@ function ProductDetail() {
   const [productReviews, setProductReviews] = useState([]);
   const [btnLoader, setBtnLoader] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [open, setOpen] = useState(false);
+  const [message, setMessage] = useState("");
+  const [severity, setSeverity] = useState("info");
   // console.log(productDetails);
   async function getProductDetails(id) {
     setIsLoading(true);
@@ -147,18 +151,23 @@ function ProductDetail() {
                 </div>
               </div>
               <div className="product-features-price-section">
-                <div className="product-features-offer-section">
-                  <span className="product-featureslist-tag">key features</span>
-                  <div className="product-featureslist">
-                    <ul>
-                      {productDetails.features &&
-                        Array.isArray(productDetails.features) &&
-                        productDetails.features.map((feature, index) => {
-                          return <li key={index}>{feature}</li>;
-                        })}
-                    </ul>
+                {productDetails.features &&
+                productDetails.features.length === 0 ? null : (
+                  <div className="product-features-offer-section">
+                    <span className="product-featureslist-tag">
+                      key features
+                    </span>
+                    <div className="product-featureslist">
+                      <ul>
+                        {productDetails.features &&
+                          Array.isArray(productDetails.features) &&
+                          productDetails.features.map((feature, index) => {
+                            return <li key={index}>{feature}</li>;
+                          })}
+                      </ul>
+                    </div>
                   </div>
-                </div>
+                )}
                 <div className="product-addtocart-price-section">
                   <div className="product-details-price">
                     MRP: <span>{INRConversion(productDetails.price)}</span>

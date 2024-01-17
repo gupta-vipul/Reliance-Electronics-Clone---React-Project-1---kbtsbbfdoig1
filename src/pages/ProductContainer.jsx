@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useLocation, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import {
   GET_PRODUCTS_CATEGORYWISE,
   GET_SEARCH_DATA,
@@ -13,6 +13,7 @@ import Toast from "../components/Toast/Toast";
 
 function ProductContainer() {
   const { productCategory, userInput, itemsCategories } = useParams();
+  const navigate = useNavigate();
   const [products, setProducts] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [brands, setBrands] = useState([]);
@@ -20,6 +21,7 @@ function ProductContainer() {
   const [message, setMessage] = useState("");
   const [severity, setSeverity] = useState("info");
   const [brandKey, setBrandKey] = useState("");
+  const [sortBtn, setSortBtn] = useState("relevance");
   async function getAllProductsCategoryWise(category) {
     setIsLoading(true);
     try {
@@ -166,6 +168,109 @@ function ProductContainer() {
       setIsLoading(false);
     }
   }
+  async function addProductToWishlist(id) {
+    try {
+      const response = await fetch(
+        `https://academics.newtonschool.co/api/v1/ecommerce/wishlist/`,
+        {
+          method: "PATCH",
+          headers: {
+            projectID: "kbtsbbfdoig1",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            productId: id,
+          }),
+        }
+      );
+      const jsonData = await response.json();
+      if (jsonData.status === "success") {
+        setOpen(true);
+        setMessage(jsonData.message);
+        setSeverity(jsonData.status);
+      }
+    } catch (error) {
+      console.log(error);
+    } finally {
+      // setIsLoading(false);
+    }
+  }
+  async function getSortedProduct(category, sort) {
+    setIsLoading(true);
+    try {
+      const response = await fetch(
+        `https://academics.newtonschool.co/api/v1/ecommerce/electronics/products?sort={"price":${sort}}&filter={"subCategory":"${category}"}`,
+        {
+          headers: {
+            projectID: "kbtsbbfdoig1",
+          },
+        }
+      );
+      const jsonData = await response.json();
+      setProducts(jsonData.data);
+      const updatedBrand = [
+        ...new Set(
+          jsonData.data.map((item) => {
+            if (item.brand) {
+              return item.brand;
+            }
+          })
+        ),
+      ];
+      setBrands(updatedBrand);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsLoading(false);
+    }
+  }
+  async function getSortedSearchResult(userInput, sort) {
+    setIsLoading(true);
+    try {
+      const response = await fetch(
+        `https://academics.newtonschool.co/api/v1/ecommerce/electronics/products?sort={"price":${sort}}&search={"name":"${userInput}"}`,
+        {
+          headers: {
+            projectID: "kbtsbbfdoig1",
+          },
+        }
+      );
+      const jsonData = await response.json();
+      if (jsonData.status === "success") {
+        setProducts(jsonData.data);
+        const updatedBrand = [
+          ...new Set(
+            jsonData.data.map((item) => {
+              if (item.brand) {
+                return item.brand;
+              }
+            })
+          ),
+        ];
+        setBrands(updatedBrand);
+      } else {
+        setProducts([]);
+      }
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsLoading(false);
+    }
+  }
+
+  function addToWishList(e, id) {
+    e.stopPropagation();
+    if (localStorage.getItem("token")) {
+      addProductToWishlist(id);
+    } else {
+      navigate("/login");
+    }
+  }
+
+  function showProductDetails(id) {
+    window.open(`/product/${id}`, "_blank");
+  }
 
   function handleSnackbarClose(e, reason) {
     if (reason === "clickaway") {
@@ -177,24 +282,43 @@ function ProductContainer() {
     if (productCategory) {
       getFilteredProduct(e.target.value, productCategory);
     } else if (userInput) {
-      getSearchedFilterProducts(e.target.value, userInput);
+      getSearchResult(userInput);
     } else if (itemsCategories) {
       // console.log("HomePage data");
     }
   }
   // Sorting function
-  function SortingLowToHigh() {
-    //   if(productCategory) {
-    //   }
-    //   else if(userInput) {
-    //     console.log('userInput');
-    //   }
-    //   else if(itemsCategories) {
-    //     console.log('HomePage data');
-    //   }
-  }
-  function SortingHighToLow() {
-    //   console.log('price High - low ')
+  function handleSortBtn(e) {
+    if (e.target.id === "relevance") {
+      setSortBtn(e.target.id);
+      if (productCategory) {
+        getAllProductsCategoryWise(productCategory);
+      } else if (userInput) {
+        getSearchedFilterProducts(userInput);
+      } else if (itemsCategories) {
+        // console.log("HomePage data");
+      }
+    } else if (e.target.id === "priceasec") {
+      // low-to-high
+      setSortBtn(e.target.id);
+      if (productCategory) {
+        getSortedProduct(productCategory, 1);
+      } else if (userInput) {
+        getSortedSearchResult(userInput, 1);
+      } else if (itemsCategories) {
+        // console.log("HomePage data");
+      }
+    } else if (e.target.id === "pricedsec") {
+      // high-to-low
+      setSortBtn(e.target.id);
+      if (productCategory) {
+        getSortedProduct(productCategory, -1);
+      } else if (userInput) {
+        getSortedSearchResult(userInput, -1);
+      } else if (itemsCategories) {
+        // console.log("HomePage data");
+      }
+    }
   }
 
   function handleFilterClearBtn() {
@@ -277,11 +401,31 @@ function ProductContainer() {
                   <div className="panel-caption">{productCategory}</div>
                   <div className="control-panel">
                     <span>Sort By:</span>
-                    <div className="sorting-btn">Relevance</div>
-                    <div className="sorting-btn" onClick={SortingLowToHigh}>
+                    <div
+                      className={`sorting-btn ${
+                        sortBtn === "relevance" ? "sortingBtn_active" : null
+                      }`}
+                      id="relevance"
+                      onClick={handleSortBtn}
+                    >
+                      Relevance
+                    </div>
+                    <div
+                      className={`sorting-btn ${
+                        sortBtn === "priceasec" ? "sortingBtn_active" : null
+                      }`}
+                      onClick={handleSortBtn}
+                      id="priceasec"
+                    >
                       Price(Low-High)
                     </div>
-                    <div className="sorting-btn" onClick={SortingHighToLow}>
+                    <div
+                      className={`sorting-btn ${
+                        sortBtn === "pricedsec" ? "sortingBtn_active" : null
+                      }`}
+                      onClick={handleSortBtn}
+                      id="pricedsec"
+                    >
                       Price(High-Low)
                     </div>
                   </div>
@@ -312,7 +456,12 @@ function ProductContainer() {
                     Array.isArray(products) &&
                     products.map((product) => {
                       return (
-                        <ProductCard key={product._id} product={product} />
+                        <ProductCard
+                          key={product._id}
+                          product={product}
+                          handleProductCardClick={showProductDetails}
+                          handleProductWishlistBtn={addToWishList}
+                        />
                       );
                     })}
                 </div>

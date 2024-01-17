@@ -162,6 +162,10 @@ ProductContainer Component
   border-radius: 3px;
   cursor: pointer;
 }
+.sortingBtn_active {
+  background-color: #0080005c;
+}
+
 .applied-filter-section {
   padding: 1rem;
   margin: 8px 0;

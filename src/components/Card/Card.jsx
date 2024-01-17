@@ -17,17 +17,19 @@ function ProductCard(props) {
           }}
         />
       </div>
-      <div className="product-title">{product.name}</div>
-      <div className="product-ratings">
-        <Rating
-          name="read-only"
-          value={product.ratings}
-          style={{ fontSize: "16px" }}
-          readOnly
-        />
-        <span>({product.ratings.toFixed(1)})</span>
+      <div className="product-card-mobile-view">
+        <div className="product-title">{product.name}</div>
+        <div className="product-ratings">
+          <Rating
+            name="read-only"
+            value={product.ratings}
+            style={{ fontSize: "16px" }}
+            readOnly
+          />
+          <span>({product.ratings.toFixed(1)})</span>
+        </div>
+        <div className="product-price">{INRConversion(product.price)}</div>
       </div>
-      <div className="product-price">{INRConversion(product.price)}</div>
       <div
         className="wishlist-btn"
         onClick={(e) => handleProductWishlistBtn(e, product._id)}

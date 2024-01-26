@@ -44,6 +44,7 @@ export const PATCH_ITEM_TO_CART = (id) =>
 export const REMOVE_ITEM_FROM_CART = (id) =>
   `https://academics.newtonschool.co/api/v1/ecommerce/cart/${id}`;
 
+export const CLEAR_CART = `https://academics.newtonschool.co/api/v1/ecommerce/cart`;
 // Wishllist
 
 export const GET_WISHLIST_DATA = `https://academics.newtonschool.co/api/v1/ecommerce/wishlist`;

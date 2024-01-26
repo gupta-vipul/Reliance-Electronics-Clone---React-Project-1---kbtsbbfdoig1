@@ -103,6 +103,25 @@ body {
   .register-form-container {
     width: 100%;
   }
+  /* order successfully placed */
+  .order-placed-modal {
+    width: 90%;
+  }
+  /* Profile Section */
+  .profile-left-section {
+    display: none;
+  }
+  .mobile-view-profile-page {
+    display: block;
+    background-color: #fff;
+    padding: 0.625rem 0.625rem;
+    display: flex;
+    justify-content: space-between;
+  }
+  .mobile-profile-head {
+    font-weight: 600;
+    text-transform: capitalize;
+  }
   /* Footer */
   .footer {
     display: none;

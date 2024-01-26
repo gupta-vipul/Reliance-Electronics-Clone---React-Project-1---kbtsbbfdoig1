@@ -106,6 +106,7 @@ const Header = () => {
   async function validatePincode(pincode) {
     const response = await fetch(GET_PINCODE_DETAILS(pincode));
     const jsonData = await response.json();
+    console.log(jsonData);
     if (jsonData[0].Status === "Success") {
       const updatedDetails = { ...fetchedPincodeDetails };
       updatedDetails.isError = false;

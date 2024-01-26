@@ -39,6 +39,9 @@ function Profile() {
     localStorage.removeItem("pincode");
     navigate("/");
   }
+  function navigateToMyAccount() {
+    navigate(`/profile/myaccount`);
+  }
   useEffect(() => {
     const userDetails = JSON.parse(localStorage.getItem("userInfo"));
     setUserInfo(userDetails);
@@ -46,6 +49,14 @@ function Profile() {
   return (
     <div className="user-account">
       <Breadcrumb />
+      <div className="mobile-view-profile-page">
+        <span className="mobile-profile-head" onClick={navigateToMyAccount}>
+          my account
+        </span>
+        <span className="mobile-profile-head" onClick={logout}>
+          logout
+        </span>
+      </div>
       <div className="user-account-container flex">
         <div className="profile-left-section flex">
           <div className="about-user">

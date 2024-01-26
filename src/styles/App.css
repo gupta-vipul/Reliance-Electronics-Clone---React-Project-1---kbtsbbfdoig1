@@ -504,6 +504,10 @@ Cart Component
   padding: 1rem;
   justify-content: space-between;
 }
+.cart-pincode {
+  align-items: center;
+  font-size: 0.9rem;
+}
 .cart-product-details a {
   text-decoration: none;
 }
@@ -623,6 +627,9 @@ user-profile
   gap: 1rem;
   width: 20%;
   border-right: 1px solid #e0e0e1;
+}
+.mobile-view-profile-page {
+  display: none;
 }
 .about-user {
   background-color: #fff;
@@ -952,4 +959,75 @@ Order History Page
 
 .cart-details-control button:hover {
   background-color: #b8181b;
+}
+
+/* Order Placed Modal */
+.order-placed-modal-overlay {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  top: 0;
+  z-index: 100;
+  display: flex;
+  justify-content: center;
+  backdrop-filter: blur(0.625rem);
+}
+
+.order-placed-modal {
+  margin-top: 200px;
+  background-color: #fff;
+  width: 30%;
+  height: fit-content;
+  padding: 1.5rem;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.625rem;
+  font-size: 1rem;
+  font-weight: 650;
+  color: var(--secondary-color);
+  box-sizing: border-box;
+}
+
+.order-placed-modal img {
+  width: 40%;
+  height: auto;
+}
+
+.order-placed-redirect-text {
+  color: #000;
+  font-size: 1rem;
+  font-weight: 400;
+}
+
+.order-placed-home-btn {
+  padding: 0.5rem 1.25rem;
+  background-color: var(--primary-color);
+  color: #fff;
+  font-weight: 500;
+  text-transform: uppercase;
+  border: none;
+  border-radius: 0.25rem;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.order-placed-home-btn:hover {
+  background-color: #b8181b;
+}
+
+.order-history table,
+tr,
+td,
+th {
+  border: 1px solid #fff;
+  border-collapse: collapse;
+  padding: 0.5rem;
+}
+
+.order-history thead {
+  background-color: var(--secondary-color);
+  color: #fff;
 }

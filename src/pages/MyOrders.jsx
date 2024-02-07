@@ -56,8 +56,8 @@ function MyOrders() {
                   return (
                     <tr key={order._id}>
                       <td>{order.items[0].product.name}</td>
-                      <td>{order.totalPrice}</td>
-                      <td>{createdAt.toLocaleString()}</td>
+                      <td style={{textAlign: "center", fontWeight: 'bold'}}>{order.totalPrice}</td>
+                      <td style={{textAlign: "center", fontWeight: 'bold'}}>{new Date(createdAt).toLocaleString()}</td>
                     </tr>
                   );
                 })}
